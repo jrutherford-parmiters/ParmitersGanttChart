@@ -1,1 +1,1645 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width,initial-scale=1"> <title>Advanced Gantt Chart Builder Pro</title> <style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f5f7fa;padding:20px}.container{max-width:100%;background:#fff;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.1);overflow:hidden}.toolbar{background:#2c3e50;color:#fff;padding:15px 20px;display:flex;gap:15px;align-items:center;flex-wrap:wrap}.toolbar h1{font-size:20px;margin-right:auto;display:flex;align-items:center;gap:10px}.toolbar .credit{font-size:10px;opacity:.6;font-weight:400;font-style:italic}.toolbar button,.toolbar input{padding:8px 15px;border:none;border-radius:4px;cursor:pointer;font-size:14px}.toolbar button{background:#3498db;color:#fff;transition:background .3s}.toolbar button:hover{background:#2980b9}.toolbar input[type=date],.toolbar input[type=number]{padding:7px 10px}.toolbar label{font-size:14px}.stats-bar{background:#34495e;color:#fff;padding:12px 20px;display:flex;gap:25px;align-items:center;flex-wrap:wrap;font-size:13px}.stat-item{display:flex;align-items:center;gap:5px}.stat-label{opacity:.8}.stat-value{font-weight:700;font-size:14px}.filter-bar{background:#ecf0f1;padding:12px 20px;display:flex;gap:15px;align-items:center;flex-wrap:wrap;border-bottom:2px solid #bdc3c7}.filter-bar input,.filter-bar select{padding:6px 12px;border:1px solid #bdc3c7;border-radius:4px;font-size:13px}.filter-bar label{font-size:13px;font-weight:500}.gantt-wrapper{display:flex;overflow-x:auto;overflow-y:auto;max-height:60vh}.task-list{min-width:350px;background:#ecf0f1;border-right:2px solid #bdc3c7;position:sticky;left:0;z-index:10}.task-list-header{background:#34495e;color:#fff;padding:12px;font-weight:700;border-bottom:2px solid #2c3e50;height:80px;display:flex;align-items:center}.task-row{padding:8px 12px;border-bottom:1px solid #bdc3c7;display:flex;align-items:center;gap:8px;min-height:50px;background:#fff;position:relative}.task-row:hover{background:#f8f9fa}.task-row:hover .move-buttons{display:flex}.task-indent{width:20px}.task-toggle{cursor:pointer;user-select:none;width:16px;text-align:center}.task-name{flex:1;font-size:13px;display:flex;flex-direction:column;gap:3px}.task-main-name{font-weight:500}.task-meta{font-size:11px;color:#7f8c8d;display:flex;gap:10px}.task-delete{background:#e74c3c;color:#fff;border:none;padding:4px 8px;border-radius:3px;cursor:pointer;font-size:11px}.task-icon{font-size:14px;width:16px;text-align:center}.priority-indicator{width:8px;height:8px;border-radius:50%;display:inline-block}.priority-low{background:#95a5a6}.priority-medium{background:#f39c12}.priority-high{background:#e74c3c}.move-buttons{display:none;gap:2px;margin-left:auto}.move-btn{background:#3498db;color:#fff;border:none;padding:2px 6px;border-radius:3px;cursor:pointer;font-size:11px;font-weight:700}.move-btn:hover{background:#2980b9}.timeline{flex:1;overflow-x:auto;min-width:0}.timeline-header{display:flex;background:#34495e;color:#fff;border-bottom:2px solid #2c3e50;height:80px;flex-direction:column;position:sticky;top:0;z-index:5;min-width:min-content}.day-header,.week-header{min-width:min-content}.week-header{display:flex;height:40px}.week-cell{min-width:140px;padding:8px;border-right:1px solid #2c3e50;text-align:center;font-weight:700;display:flex;align-items:center;justify-content:center}.day-header{display:flex;height:40px}.day-cell{min-width:20px;padding:4px;border-right:1px solid #4a5f7f;text-align:center;font-size:11px;display:flex;align-items:center;justify-content:center}.timeline-grid{position:relative;min-width:min-content}.grid-row{display:flex;min-height:50px;border-bottom:1px solid #ecf0f1;position:relative;min-width:min-content}.grid-cell{min-width:20px;border-right:1px solid #ecf0f1}.grid-cell.weekend{background:#f8f9fa}.task-bar{position:absolute;height:28px;top:11px;border-radius:4px;cursor:move;display:flex;align-items:center;padding:0 8px;font-size:11px;color:#fff;font-weight:500;user-select:none;box-shadow:0 2px 4px rgba(0,0,0,.2);overflow:hidden}.task-bar.parent{background:#2c3e50;height:8px;top:21px;border-radius:2px}.task-bar.child{background:#3498db}.task-bar.critical{background:#e74c3c;border:2px solid #c0392b}.task-bar.high-priority{border:2px solid #e74c3c}.task-bar.milestone{width:20px!important;height:20px;background:#e74c3c;transform:rotate(45deg);top:15px;padding:0;cursor:pointer}.task-bar.deadline{width:3px!important;height:100%;background:#e74c3c;top:0;padding:0;border-radius:0}.today-line{width:2px!important;height:100%;background:#27ae60;top:0;padding:0;border-radius:0;box-shadow:0 0 5px rgba(39,174,96,.5)}.progress-bar{position:absolute;left:0;top:0;height:100%;background:rgba(255,255,255,.3);border-radius:4px 0 0 4px;pointer-events:none}.resize-handle{position:absolute;width:8px;height:100%;top:0;cursor:ew-resize;background:rgba(255,255,255,.3)}.resize-handle.left{left:0}.resize-handle.right{right:0}.dependency-line{position:absolute;stroke:#95a5a6;stroke-width:2;fill:none;pointer-events:none}.dependency-line.critical{stroke:#e74c3c;stroke-width:3}.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center}.modal.active{display:flex}.modal-content{background:#fff;padding:30px;border-radius:8px;max-width:500px;width:90%;max-height:90vh;overflow-y:auto}.modal-content h2{margin-bottom:20px}.modal-content label{display:block;margin-top:15px;margin-bottom:5px;font-weight:700;font-size:13px}.modal-content input,.modal-content select,.modal-content textarea{width:100%;padding:8px;border:1px solid #bdc3c7;border-radius:4px;font-size:14px}.modal-buttons{margin-top:20px;display:flex;gap:10px;justify-content:flex-end}.modal-buttons button{padding:10px 20px;border:none;border-radius:4px;cursor:pointer;font-size:14px}.modal-buttons .save{background:#27ae60;color:#fff}.modal-buttons .cancel{background:#95a5a6;color:#fff}.help-content{line-height:1.6}.help-content h3{margin-top:15px;margin-bottom:10px;color:#2c3e50}.help-content ul{margin-left:20px;margin-bottom:10px}.help-content li{margin-bottom:5px}select[multiple]{min-height:100px}.color-preview{width:30px;height:30px;border-radius:4px;border:2px solid #bdc3c7;display:inline-block;vertical-align:middle;margin-left:10px}</style> </head> <body> <div class="container"> <div class="toolbar"> <h1>📊 Gantt Chart Builder Pro <span class="credit">Parmiters School Computing Dept</span></h1> <label>Start Date:</label> <input type="date" id="startDate"> <label>Weeks:</label> <input type="number" id="numWeeks" value="8" min="1" max="52" style="width:60px"> <button onclick="updateTimeline()">Update Timeline</button> <button onclick="addTask()">+ Add Task</button> <button onclick="addMilestone()">+ Add Milestone</button> <button onclick="setDeadline()">Set Deadline</button> <button onclick="toggleCriticalPath()" id="criticalPathBtn">Show Critical Path</button> <button onclick="manageAssignees()">👥 Manage Assignees</button> <button onclick="saveProject()">💾 Save JSON</button> <button onclick="loadProject()">📂 Load JSON</button> <button onclick="exportToPNG()">📷 Export PNG</button> <button onclick="showHelp()">❓ Help</button> </div> <div class="stats-bar"> <div class="stat-item"> <span class="stat-label">Total Tasks:</span> <span class="stat-value" id="statTotal">0</span> </div> <div class="stat-item"> <span class="stat-label">Completed:</span> <span class="stat-value" id="statCompleted">0</span> </div> <div class="stat-item"> <span class="stat-label">In Progress:</span> <span class="stat-value" id="statInProgress">0</span> </div> <div class="stat-item"> <span class="stat-label">Avg Progress:</span> <span class="stat-value" id="statAvgProgress">0%</span> </div> <div class="stat-item"> <span class="stat-label">Duration:</span> <span class="stat-value" id="statDuration">0 days</span> </div> </div> <div class="filter-bar"> <label>🔍 Search:</label> <input type="text" id="searchFilter" placeholder="Search tasks..." oninput="applyFilters()"> <label>👤 Assignee:</label> <select id="assigneeFilter" onchange="applyFilters()"> <option value="">All</option> </select> <label>⚡ Priority:</label> <select id="priorityFilter" onchange="applyFilters()"> <option value="">All</option> <option value="low">Low</option> <option value="medium">Medium</option> <option value="high">High</option> </select> </div> <div class="gantt-wrapper"> <div class="task-list"> <div class="task-list-header">Task Details</div> <div id="taskListBody"></div> </div> <div class="timeline"> <div class="timeline-header" id="timelineHeader"></div> <div class="timeline-grid" id="timelineGrid"></div> </div> </div> </div> <div class="modal" id="taskModal"> <div class="modal-content"> <h2 id="modalTitle">Add Task</h2> <label>Task Name:</label> <input type="text" id="modalTaskName"> <label>Type:</label> <select id="modalTaskType"> <option value="child">Child Task</option> <option value="parent">Parent Task</option> <option value="milestone">Milestone</option> </select> <label>Start Date:</label> <input type="date" id="modalStartDate"> <label>Duration (days):</label> <input type="number" id="modalDuration" value="3" min="1"> <label>Progress (%):</label> <input type="number" id="modalProgress" value="0" min="0" max="100"> <label>Assignee:</label> <select id="modalAssignee"> <option value="">None</option> </select> <input type="text" id="modalAssigneeCustom" placeholder="Or type new assignee name" style="margin-top:5px"> <label>Priority:</label> <select id="modalPriority"> <option value="low">Low</option> <option value="medium">Medium</option> <option value="high">High</option> </select> <label>Custom Color:</label> <input type="color" id="modalColor" value="#3498db"> <span class="color-preview" id="colorPreview"></span> <label>Parent Task (optional):</label> <select id="modalParent"> <option value="">None</option> </select> <label>Dependencies (tasks that must finish before this one):</label> <select id="modalDependencies" multiple> </select> <small style="color:#7f8c8d;font-size:11px">Hold Ctrl/Cmd to select multiple</small> <div class="modal-buttons"> <button class="cancel" onclick="closeModal()">Cancel</button> <button class="save" onclick="saveTask()">Save</button> </div> </div> </div> <div class="modal" id="helpModal"> <div class="modal-content"> <h2>Gantt Chart Pro - User Guide</h2> <div class="help-content"> <h3>Key Features</h3> <ul> <li><strong>Task Management:</strong> Create parent tasks, child tasks, and milestones</li> <li><strong>Dependencies:</strong> Link tasks that depend on each other</li> <li><strong>Critical Path:</strong> Automatically identifies the longest sequence of dependent tasks</li> <li><strong>Progress Tracking:</strong> Set completion percentage for each task</li> <li><strong>Filtering:</strong> Search and filter by assignee and priority</li> </ul> <h3>How to Use</h3> <ul> <li><strong>Add Tasks:</strong> Click "+ Add Task" button</li> <li><strong>Edit Tasks:</strong> Double-click task name in the list</li> <li><strong>Move Tasks:</strong> Drag task bars left/right to change dates</li> <li><strong>Resize Tasks:</strong> Drag the edges of task bars to change duration</li> <li><strong>Collapse/Expand:</strong> Click ▼/▶ next to parent tasks</li> <li><strong>Reorder:</strong> Use ↑/↓ buttons when hovering over tasks</li> </ul> <h3>Dependencies & Critical Path</h3> <ul> <li>Select dependencies when creating/editing tasks</li> <li>Grey lines show task dependencies</li> <li>Click "Show Critical Path" to highlight the longest task chain</li> <li>Critical path tasks appear in red</li> </ul> <h3>Visual Indicators</h3> <ul> <li><strong>Colored dots:</strong> Task priority (grey=low, orange=medium, red=high)</li> <li><strong>Progress bars:</strong> White overlay shows task completion</li> <li><strong>Green line:</strong> Today's date</li> <li><strong>Red line:</strong> Project deadline</li> </ul> <h3>Save & Export</h3> <ul> <li><strong>Save JSON:</strong> Download project as JSON file</li> <li><strong>Load JSON:</strong> Import previously saved project</li> <li><strong>Export PNG:</strong> Download chart as PNG image</li> </ul> </div> <div class="modal-buttons"> <button class="cancel" onclick="closeHelp()">Close</button> </div> </div> </div> <div class="modal" id="assigneeModal"> <div class="modal-content"> <h2>Manage Team Assignees</h2> <div style="margin-bottom:15px"> <label style="display:block;margin-bottom:5px">Add New Assignee:</label> <div style="display:flex;gap:10px"> <input type="text" id="newAssigneeName" placeholder="Enter name" style="flex:1"> <button onclick="addAssignee()" style="background:#27ae60;color:#fff;border:none;padding:8px 15px;border-radius:4px;cursor:pointer">Add</button> </div> </div> <div> <label style="display:block;margin-bottom:5px;font-weight:700">Current Assignees:</label> <div id="assigneeList" style="max-height:300px;overflow-y:auto;border:1px solid #bdc3c7;border-radius:4px;padding:10px"> </div> </div> <div class="modal-buttons"> <button class="cancel" onclick="closeAssigneeModal()">Close</button> </div> </div> </div> <input type="file" id="fileInput" style="display:none" accept=".json"> <script>let startDate=new Date;startDate.setHours(0,0,0,0);let numWeeks=8,tasks=[],deadline=null,draggedTask=null,resizeTask=null,resizeDirection=null,dragStartX=0,editingTaskId=null,showCritical=!1,criticalPath=[],filteredTasks=[],assigneeList=[];const dayWidth=20;function initializeDate(){const e=document.getElementById("startDate"),t=new Date;t.setHours(0,0,0,0),e.value=t.toISOString().split("T")[0],startDate=new Date(t)}function updateTimeline(){const e=document.getElementById("startDate").value;e&&(startDate=new Date(e),startDate.setHours(0,0,0,0)),numWeeks=parseInt(document.getElementById("numWeeks").value)||8,applyFilters()}function applyFilters(){const e=document.getElementById("searchFilter").value.toLowerCase(),t=document.getElementById("assigneeFilter").value,n=document.getElementById("priorityFilter").value;filteredTasks=tasks.filter(a=>{const s=a.name.toLowerCase().includes(e)||(a.assignee&&a.assignee.toLowerCase().includes(e)),r=!t||a.assignee===t,o=!n||a.priority===n;return s&&r&&o}),updateAssigneeFilter(),calculateCriticalPath(),updateStats(),render()}function updateAssigneeFilter(){const e=document.getElementById("assigneeFilter"),t=e.value,n=[...new Set([...assigneeList,...tasks.map(e=>e.assignee).filter(Boolean)])];e.innerHTML='<option value="">All</option>',n.forEach(t=>{e.innerHTML+=`<option value="${t}">${t}</option>`}),e.value=t}function manageAssignees(){renderAssigneeList(),document.getElementById("assigneeModal").classList.add("active")}function renderAssigneeList(){const e=document.getElementById("assigneeList");0===assigneeList.length?e.innerHTML='<p style="color:#7f8c8d;font-style:italic">No assignees added yet</p>':e.innerHTML=assigneeList.map(e=>` <div style="display:flex;align-items:center;padding:8px;border-bottom:1px solid #ecf0f1;gap:10px;"> <span style="flex:1;font-size:14px;">${e}</span> <button onclick="removeAssignee('${e}')" style="background:#e74c3c;color:#fff;border:none;padding:4px 8px;border-radius:3px;cursor:pointer;font-size:11px;">Remove</button> </div> `).join("")}function addAssignee(){const e=document.getElementById("newAssigneeName").value.trim();if(!e)return void alert("Please enter an assignee name");if(assigneeList.includes(e))return void alert("This assignee already exists");assigneeList.push(e),document.getElementById("newAssigneeName").value="",renderAssigneeList(),updateAssigneeFilter()}function removeAssignee(e){confirm(`Remove "${e}" from assignee list?\n\nNote: This won't remove them from existing tasks.`)&&(assigneeList=assigneeList.filter(t=>t!==e),renderAssigneeList(),updateAssigneeFilter())}function closeAssigneeModal(){document.getElementById("assigneeModal").classList.remove("active")}function calculateCriticalPath(){if(criticalPath=[],0===tasks.length)return;const e={};tasks.forEach(t=>{e[t.id]={...t,earlyStart:0,earlyFinish:0,lateStart:1/0,lateFinish:1/0,slack:0}}),tasks.forEach(t=>{const n=e[t.id];if(t.dependencies&&t.dependencies.length>0){let e=0;t.dependencies.forEach(t=>{const a=n[t];a&&(e=Math.max(e,a.earlyFinish))}),n.earlyStart=e}else{const e=Math.floor((new Date(t.start)-startDate)/864e5);n.earlyStart=e}n.earlyFinish=n.earlyStart+(t.duration||1)});const t=Math.max(...Object.values(e).map(e=>e.earlyFinish));[...tasks].reverse().forEach(n=>{const a=e[n.id],s=tasks.filter(e=>e.dependencies&&e.dependencies.includes(n.id));0===s.length?a.lateFinish=t:a.lateFinish=Math.min(...s.map(t=>e[t.id].lateStart)),a.lateStart=a.lateFinish-(n.duration||1),a.slack=a.lateStart-a.earlyStart}),criticalPath=tasks.filter(t=>{const n=e[t.id];return Math.abs(n.slack)<.01}).map(e=>e.id)}function toggleCriticalPath(){showCritical=!showCritical;const e=document.getElementById("criticalPathBtn");e.textContent=showCritical?"Hide Critical Path":"Show Critical Path",e.style.background=showCritical?"#e74c3c":"#3498db",render()}function updateStats(){const e=tasks.filter(e=>"milestone"!==e.type).length,t=tasks.filter(e=>"milestone"!==e.type&&100===e.progress).length,n=tasks.filter(e=>"milestone"!==e.type&&e.progress>0&&e.progress<100).length,a=e>0?Math.round(tasks.filter(e=>"milestone"!==e.type).reduce((e,t)=>e+(t.progress||0),0)/e):0;let s=null,r=null;tasks.forEach(e=>{if("milestone"===e.type)return;const t=new Date(e.start),n=new Date(t);n.setDate(n.getDate()+(e.duration||1)),(!s||t<s)&&(s=t),(!r||n>r)&&(r=n)});const o=s&&r?Math.ceil((r-s)/864e5):0;document.getElementById("statTotal").textContent=e,document.getElementById("statCompleted").textContent=t,document.getElementById("statInProgress").textContent=n,document.getElementById("statAvgProgress").textContent=a+"%",document.getElementById("statDuration").textContent=o+" days"}function render(){renderTimelineHeader(),renderTimelineGrid(),renderTaskList()}function renderTimelineHeader(){const e=document.getElementById("timelineHeader");let t='<div class="week-header">',n='<div class="day-header">';for(let e=0;e<numWeeks;e++){const a=new Date(startDate);a.setDate(startDate.getDate()+7*e);const s=new Date(a);s.setDate(a.getDate()+6),t+=`<div class="week-cell">${formatDate(a)} - ${formatDate(s)}</div>`;for(let e=0;e<7;e++){const t=new Date(a);t.setDate(a.getDate()+e);const s=["S","M","T","W","T","F","S"][t.getDay()];n+=`<div class="day-cell">${s}</div>`}}t+="</div>",n+="</div>",e.innerHTML=t+n}function renderTimelineGrid(){const e=document.getElementById("timelineGrid"),t=7*numWeeks;e.innerHTML="";const n="http://www.w3.org/2000/svg",a=document.createElementNS(n,"svg");a.style.position="absolute",a.style.top="0",a.style.left="0",a.style.width="100%",a.style.height="100%",a.style.pointerEvents="none",a.style.zIndex="1",filteredTasks.forEach((n,a)=>{if(!isTaskVisible(n))return;if("milestone"!==n.type){const s=document.createElement("div");s.className="grid-row";for(let e=0;e<t;e++){const n=new Date(startDate);n.setDate(startDate.getDate()+e);const a=0===n.getDay()||6===n.getDay(),t=document.createElement("div");t.className="grid-cell"+(a?" weekend":""),s.appendChild(t)}const r=createTaskBar(n,a);s.appendChild(r),e.appendChild(s)}}),filteredTasks.forEach((t,s)=>{t.dependencies&&t.dependencies.length>0&&t.dependencies.forEach(r=>{const o=tasks.find(e=>e.id===r);if(o&&filteredTasks.includes(t)&&filteredTasks.includes(o)){const r=getTaskRowIndex(tasks.indexOf(o)),l=getTaskRowIndex(tasks.indexOf(t));if(r>=0&&l>=0){const i=Math.floor((new Date(o.start)-startDate)/864e5)+(o.duration||1),d=Math.floor((new Date(t.start)-startDate)/864e5),c=i*dayWidth,p=50*r+25,u=d*dayWidth,f=50*l+25,m=document.createElementNS(n,"path"),g=(c+u)/2,h=`M ${c} ${p} L ${g} ${p} L ${g} ${f} L ${u} ${f}`;m.setAttribute("d",h),m.setAttribute("class",showCritical&&criticalPath.includes(t.id)&&criticalPath.includes(o.id)?"dependency-line critical":"dependency-line"),a.appendChild(m)}}})}),e.appendChild(a);const s=document.createElement("div");s.style.position="absolute",s.style.width="100%",s.style.height="100%",s.style.top="0",s.style.pointerEvents="none",s.style.zIndex="2",filteredTasks.forEach((e,t)=>{if("milestone"===e.type){const n=Math.floor((new Date(e.start)-startDate)/864e5),a=getTaskRowIndex(tasks.indexOf(e));if(n>=0&&n<7*numWeeks&&a>=0){const s=document.createElement("div");s.className="task-bar milestone",s.style.left=`${n*dayWidth+10}px`,s.style.top=`${50*a+15}px`,s.style.pointerEvents="auto",s.title=e.name,s.addEventListener("mousedown",t=>startDrag(t,e,tasks.indexOf(e))),s.appendChild(s)}}});const r=new Date;r.setHours(0,0,0,0);const o=Math.floor((r-startDate)/864e5);if(o>=0&&o<7*numWeeks){const t=document.createElement("div");t.className="task-bar today-line",t.style.left=`${o*dayWidth}px`,t.style.top="0",t.style.height=`${e.scrollHeight}px`,t.title=`Today: ${formatDate(r)}`,s.appendChild(t)}if(deadline){const t=Math.floor((new Date(deadline)-startDate)/864e5);if(t>=0&&t<7*numWeeks){const n=document.createElement("div");n.className="task-bar deadline",n.style.left=`${t*dayWidth}px`,n.style.top="0",n.style.height=`${e.scrollHeight}px`,n.title=`Deadline: ${formatDate(new Date(deadline))}`,s.appendChild(n)}}e.appendChild(s)}function getTaskRowIndex(e){let t=0;for(let n=0;n<e;n++)isTaskVisible(tasks[n])&&filteredTasks.includes(tasks[n])&&"milestone"!==tasks[n].type&&t++;return isTaskVisible(tasks[e])&&filteredTasks.includes(tasks[e])?t:-1}function createTaskBar(e,t){const n=Math.floor((new Date(e.start)-startDate)/864e5),a=e.duration||1,s=document.createElement("div");s.className=`task-bar ${e.type}`,showCritical&&criticalPath.includes(e.id)?s.classList.add("critical"):"high"===e.priority&&!showCritical&&s.classList.add("high-priority"),s.style.left=`${n*dayWidth}px`,s.style.width=`${a*dayWidth}px`,e.color&&"parent"!==e.type&&(s.style.background=e.color);let r=`${e.name}\nStart: ${formatDate(new Date(e.start))}\nDuration: ${a} days`;if(e.assignee&&(r+=`\nAssignee: ${e.assignee}`),void 0!==e.progress&&(r+=`\nProgress: ${e.progress}%`),e.priority&&(r+=`\nPriority: ${e.priority}`),s.title=r,s.addEventListener("mousedown",t=>{t.target.classList.contains("resize-handle")||startDrag(t,e,tasks.indexOf(e))}),e.progress>0&&"parent"!==e.type){const t=document.createElement("div");t.className="progress-bar",t.style.width=`${e.progress}%`,s.appendChild(t)}if("parent"!==e.type){const t=document.createElement("div");t.className="resize-handle left",t.addEventListener("mousedown",t=>startResize(t,e,tasks.indexOf(e),"left")),s.appendChild(t);const n=document.createElement("div");n.className="resize-handle right",n.addEventListener("mousedown",t=>startResize(t,e,tasks.indexOf(e),"right")),s.appendChild(n)}return s}function renderTaskList(){const e=document.getElementById("taskListBody");e.innerHTML="",filteredTasks.forEach((t,n)=>{if(isTaskVisible(t)){const a=document.createElement("div");a.className="task-row";const s=t.parentId?'<span class="task-indent"></span>':"",r="parent"===t.type?`<span class="task-toggle" onclick="toggleCollapse(${t.id})">${t.collapsed?"▶":"▼"}</span>`:'<span class="task-indent"></span>',o=getTaskIcon(t.type),l=t.priority?`<span class="priority-indicator priority-${t.priority}"></span>`:"",i=tasks.indexOf(t),d=[];t.assignee&&d.push(`👤 ${t.assignee}`),void 0!==t.progress&&d.push(`${t.progress}%`);const c=d.length>0?`<div class="task-meta">${d.join(" • ")}</div>`:"";a.innerHTML=` ${s} ${r} ${l} <span class="task-icon">${o}</span> <span class="task-name" ondblclick="editTask(${t.id})"> <div class="task-main-name">${t.name}</div> ${c} </span> <div class="move-buttons"> <button class="move-btn" onclick="moveTask(${i},-1)" ${0===i?"disabled":""}>↑</button> <button class="move-btn" onclick="moveTask(${i},1)" ${i===tasks.length-1?"disabled":""}>↓</button> </div> <button class="task-delete" onclick="deleteTask(${t.id})">×</button> `,e.appendChild(a)}})}function getTaskIcon(e){switch(e){case"parent":return"📁";case"child":return"📄";case"milestone":return"🏁";default:return"📄"}}function moveTask(e,t){const n=e+t;if(n<0||n>=tasks.length)return;const a=tasks[e];tasks[e]=tasks[n],tasks[n]=a,applyFilters()}function startDrag(e,t,n){e.preventDefault(),e.stopPropagation(),draggedTask={task:t,index:n},dragStartX=e.clientX,document.addEventListener("mousemove",drag),document.addEventListener("mouseup",stopDrag)}function drag(e){if(draggedTask){const t=e.clientX-dragStartX,n=Math.round(t/dayWidth);if(0!==n){const t=new Date(draggedTask.task.start);t.setDate(t.getDate()+n),draggedTask.task.start=t.toISOString().split("T")[0],dragStartX=e.clientX,render()}}}function stopDrag(){draggedTask=null,document.removeEventListener("mousemove",drag),document.removeEventListener("mouseup",stopDrag)}function startResize(e,t,n,a){e.preventDefault(),e.stopPropagation(),resizeTask={task:t,index:n},resizeDirection=a,dragStartX=e.clientX,document.addEventListener("mousemove",resize),document.addEventListener("mouseup",stopResize)}function resize(e){if(resizeTask){const t=e.clientX-dragStartX,n=Math.round(t/dayWidth);if(0!==n){if("left"===resizeDirection){const e=new Date(resizeTask.task.start);e.setDate(e.getDate()+n),resizeTask.task.start=e.toISOString().split("T")[0],resizeTask.task.duration=Math.max(1,resizeTask.task.duration-n)}else resizeTask.task.duration=Math.max(1,resizeTask.task.duration+n);dragStartX=e.clientX,render()}}}function stopResize(){resizeTask=null,resizeDirection=null,document.removeEventListener("mousemove",resize),document.removeEventListener("mouseup",stopResize)}function toggleCollapse(e){const t=tasks.find(t=>t.id===e);t&&(t.collapsed=!t.collapsed,applyFilters())}function addTask(){editingTaskId=null,document.getElementById("modalTitle").textContent="Add Task",document.getElementById("modalTaskName").value="",document.getElementById("modalTaskType").value="child",document.getElementById("modalStartDate").value=startDate.toISOString().split("T")[0],document.getElementById("modalDuration").value=3,document.getElementById("modalProgress").value=0,updateAssigneeSelect(),document.getElementById("modalAssigneeCustom").value="",document.getElementById("modalPriority").value="medium",document.getElementById("modalColor").value="#3498db",updateColorPreview(),updateParentSelect(),updateDependencySelect(),document.getElementById("taskModal").classList.add("active")}function addMilestone(){editingTaskId=null,document.getElementById("modalTitle").textContent="Add Milestone",document.getElementById("modalTaskName").value="",document.getElementById("modalTaskType").value="milestone",document.getElementById("modalStartDate").value=startDate.toISOString().split("T")[0],document.getElementById("modalDuration").value=1,document.getElementById("modalProgress").value=0,updateAssigneeSelect(),document.getElementById("modalAssigneeCustom").value="",document.getElementById("modalPriority").value="high",document.getElementById("modalColor").value="#e74c3c",updateColorPreview(),updateParentSelect(),updateDependencySelect(),document.getElementById("taskModal").classList.add("active")}function editTask(e){const t=tasks.find(t=>t.id===e);if(!t)return;editingTaskId=e,document.getElementById("modalTitle").textContent="Edit Task",document.getElementById("modalTaskName").value=t.name,document.getElementById("modalTaskType").value=t.type,document.getElementById("modalStartDate").value=t.start,document.getElementById("modalDuration").value=t.duration||1,document.getElementById("modalProgress").value=t.progress||0,updateAssigneeSelect(),document.getElementById("modalAssignee").value=t.assignee||"",document.getElementById("modalAssigneeCustom").value="",document.getElementById("modalPriority").value=t.priority||"medium",document.getElementById("modalColor").value=t.color||"#3498db",updateColorPreview(),updateParentSelect(),updateDependencySelect(),document.getElementById("modalParent").value=t.parentId||"";const n=document.getElementById("modalDependencies");Array.from(n.options).forEach(e=>{e.selected=t.dependencies&&t.dependencies.includes(parseInt(e.value))}),document.getElementById("taskModal").classList.add("active")}function updateAssigneeSelect(){const e=document.getElementById("modalAssignee"),t=[...new Set([...assigneeList,...tasks.map(e=>e.assignee).filter(Boolean)])];e.innerHTML='<option value="">None</option>',t.forEach(t=>{e.innerHTML+=`<option value="${t}">${t}</option>`})}function updateParentSelect(){const e=document.getElementById("modalParent");e.innerHTML='<option value="">None</option>',tasks.filter(e=>"parent"===e.type).forEach(t=>{editingTaskId!==t.id&&(e.innerHTML+=`<option value="${t.id}">${t.name}</option>`)})}function isTaskVisible(e){if(!e.parentId)return!0;const t=tasks.find(t=>t.id==e.parentId);return!t||(!t.collapsed&&isTaskVisible(t))}function updateDependencySelect(){const e=document.getElementById("modalDependencies");e.innerHTML="",tasks.forEach(t=>{editingTaskId!==t.id&&"milestone"!==t.type&&(e.innerHTML+=`<option value="${t.id}">${t.name}</option>`)})}function updateColorPreview(){const e=document.getElementById("modalColor").value;document.getElementById("colorPreview").style.background=e}document.getElementById("modalColor").addEventListener("input",updateColorPreview);function saveTask(){const e=document.getElementById("modalTaskName").value,t=document.getElementById("modalTaskType").value,n=document.getElementById("modalStartDate").value,a=parseInt(document.getElementById("modalDuration").value)||1,s=parseInt(document.getElementById("modalProgress").value)||0,r=document.getElementById("modalAssignee").value,o=document.getElementById("modalAssigneeCustom").value.trim(),l=o||r||null,i=document.getElementById("modalPriority").value,d=document.getElementById("modalColor").value,c=document.getElementById("modalParent").value,p=c?parseInt(c):null,u=document.getElementById("modalDependencies"),f=Array.from(u.selectedOptions).map(e=>parseInt(e.value));if(!e)return void alert("Please enter a task name");if(o&&!assigneeList.includes(o)&&assigneeList.push(o),null!==editingTaskId){const r=tasks.find(e=>e.id===editingTaskId);r&&(r.name=e,r.type=t,r.start=n,r.duration=a,r.progress=s,r.assignee=l,r.priority=i,r.color=d,r.parentId=p,r.dependencies=f)}else{const r={id:Date.now(),name:e,type:t,start:n,duration:a,progress:s,assignee:l,priority:i,color:d,parentId:p,dependencies:f,collapsed:!1};tasks.push(r)}closeModal(),applyFilters()}function deleteTask(e){confirm("Are you sure you want to delete this task?")&&(tasks=tasks.filter(t=>!(t.id===e||t.parentId===e)&&(t.dependencies&&(t.dependencies=t.dependencies.filter(t=>t!==e)),!0)),applyFilters())}function closeModal(){document.getElementById("taskModal").classList.remove("active")}function showHelp(){document.getElementById("helpModal").classList.add("active")}function closeHelp(){document.getElementById("helpModal").classList.remove("active")}function setDeadline(){const e=prompt("Enter deadline date (YYYY-MM-DD):",deadline||"");e?(deadline=e,render()):""===e&&(deadline=null,render())}function saveProject(){const e={startDate:startDate.toISOString().split("T")[0],numWeeks,tasks,deadline,assigneeList},t=JSON.stringify(e,null,2),n=new Blob([t],{type:"application/json"}),a=URL.createObjectURL(n),s=document.createElement("a");s.href=a,s.download="gantt-project.json",s.click(),URL.revokeObjectURL(a)}function loadProject(){document.getElementById("fileInput").click()}function exportToPNG(){const e=document.querySelector(".container"),t=document.querySelector(".gantt-wrapper"),n=t.style.maxHeight,a=t.style.overflow;t.style.maxHeight="none",t.style.overflow="visible";const s=document.createElement("script");s.src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js",s.onload=()=>{html2canvas(e,{backgroundColor:"#ffffff",scale:2,logging:!1,useCORS:!0}).then(e=>{t.style.maxHeight=n,t.style.overflow=a,e.toBlob(e=>{const t=URL.createObjectURL(e),n=document.createElement("a");n.href=t,n.download=`gantt-chart-${(new Date).toISOString().split("T")[0]}.png`,n.click(),URL.revokeObjectURL(t)})}).catch(e=>{t.style.maxHeight=n,t.style.overflow=a,alert("Error exporting PNG: "+e.message)})},s.onerror=()=>{t.style.maxHeight=n,t.style.overflow=a,alert("Failed to load export library. Please check your internet connection.")},document.head.appendChild(s)}document.getElementById("fileInput").addEventListener("change",e=>{const t=e.target.files[0];if(t){const n=new FileReader;n.onload=e=>{try{const t=JSON.parse(e.target.result);startDate=new Date(t.startDate),numWeeks=t.numWeeks,tasks=t.tasks||[],deadline=t.deadline,assigneeList=t.assigneeList||[],document.getElementById("startDate").value=t.startDate,document.getElementById("numWeeks").value=t.numWeeks,applyFilters()}catch(e){alert("Error loading project file: "+e.message)}},n.readAsText(t),e.target.value=""}});function formatDate(e){const t=e.getMonth()+1,n=e.getDate();return`${t}/${n}`}initializeDate(),updateTimeline();</script> </body> </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Gantt Chart Builder Pro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 100%;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .toolbar {
+            background: #2c3e50;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .toolbar h1 {
+            font-size: 20px;
+            margin-right: auto;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toolbar .credit {
+            font-size: 10px;
+            opacity: 0.6;
+            font-weight: normal;
+            font-style: italic;
+        }
+
+        .toolbar button, .toolbar input {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .toolbar button {
+            background: #3498db;
+            color: white;
+            transition: background 0.3s;
+        }
+
+        .toolbar button:hover {
+            background: #2980b9;
+        }
+
+        .toolbar input[type="date"], .toolbar input[type="number"] {
+            padding: 7px 10px;
+        }
+
+        .toolbar label {
+            font-size: 14px;
+        }
+
+        .stats-bar {
+            background: #34495e;
+            color: white;
+            padding: 12px 20px;
+            display: flex;
+            gap: 25px;
+            align-items: center;
+            flex-wrap: wrap;
+            font-size: 13px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .stat-label {
+            opacity: 0.8;
+        }
+
+        .stat-value {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .filter-bar {
+            background: #ecf0f1;
+            padding: 12px 20px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #bdc3c7;
+        }
+
+        .filter-bar input, .filter-bar select {
+            padding: 6px 12px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .filter-bar label {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .gantt-wrapper {
+            display: flex;
+            overflow-x: auto;
+            overflow-y: auto;
+            max-height: 60vh;
+        }
+
+        .task-list {
+            min-width: 350px;
+            background: #ecf0f1;
+            border-right: 2px solid #bdc3c7;
+            position: sticky;
+            left: 0;
+            z-index: 10;
+        }
+
+        .task-list-header {
+            background: #34495e;
+            color: white;
+            padding: 12px;
+            font-weight: bold;
+            border-bottom: 2px solid #2c3e50;
+            height: 80px;
+            display: flex;
+            align-items: center;
+        }
+
+        .task-row {
+            padding: 8px 12px;
+            border-bottom: 1px solid #bdc3c7;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-height: 50px;
+            background: white;
+            position: relative;
+        }
+
+        .task-row:hover {
+            background: #f8f9fa;
+        }
+
+        .task-row:hover .move-buttons {
+            display: flex;
+        }
+
+        .task-indent {
+            width: 20px;
+        }
+
+        .task-toggle {
+            cursor: pointer;
+            user-select: none;
+            width: 16px;
+            text-align: center;
+        }
+
+        .task-name {
+            flex: 1;
+            font-size: 13px;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .task-main-name {
+            font-weight: 500;
+        }
+
+        .task-meta {
+            font-size: 11px;
+            color: #7f8c8d;
+            display: flex;
+            gap: 10px;
+        }
+
+        .task-delete {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 11px;
+        }
+
+        .task-icon {
+            font-size: 14px;
+            width: 16px;
+            text-align: center;
+        }
+
+        .priority-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .priority-low { background: #95a5a6; }
+        .priority-medium { background: #f39c12; }
+        .priority-high { background: #e74c3c; }
+
+        .move-buttons {
+            display: none;
+            gap: 2px;
+            margin-left: auto;
+        }
+
+        .move-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 2px 6px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .move-btn:hover {
+            background: #2980b9;
+        }
+
+        .timeline {
+            flex: 1;
+            overflow-x: auto;
+            min-width: 0;
+        }
+
+        .timeline-header {
+            display: flex;
+            background: #34495e;
+            color: white;
+            border-bottom: 2px solid #2c3e50;
+            height: 80px;
+            flex-direction: column;
+            position: sticky;
+            top: 0;
+            z-index: 5;
+            min-width: min-content;
+        }
+
+        .week-header, .day-header {
+            min-width: min-content;
+        }
+
+        .week-header {
+            display: flex;
+            height: 40px;
+        }
+
+        .week-cell {
+            min-width: 140px;
+            padding: 8px;
+            border-right: 1px solid #2c3e50;
+            text-align: center;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .day-header {
+            display: flex;
+            height: 40px;
+        }
+
+        .day-cell {
+            min-width: 20px;
+            padding: 4px;
+            border-right: 1px solid #4a5f7f;
+            text-align: center;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .timeline-grid {
+            position: relative;
+            min-width: min-content;
+        }
+
+        .grid-row {
+            display: flex;
+            min-height: 50px;
+            border-bottom: 1px solid #ecf0f1;
+            position: relative;
+            min-width: min-content;
+        }
+
+        .grid-cell {
+            min-width: 20px;
+            border-right: 1px solid #ecf0f1;
+        }
+
+        .grid-cell.weekend {
+            background: #f8f9fa;
+        }
+
+        .task-bar {
+            position: absolute;
+            height: 28px;
+            top: 11px;
+            border-radius: 4px;
+            cursor: move;
+            display: flex;
+            align-items: center;
+            padding: 0 8px;
+            font-size: 11px;
+            color: white;
+            font-weight: 500;
+            user-select: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .task-bar.parent {
+            background: #2c3e50;
+            height: 8px;
+            top: 21px;
+            border-radius: 2px;
+        }
+
+        .task-bar.child {
+            background: #3498db;
+        }
+
+        .task-bar.critical {
+            background: #e74c3c;
+            border: 2px solid #c0392b;
+        }
+
+        .task-bar.high-priority {
+            border: 2px solid #e74c3c;
+        }
+
+        .task-bar.milestone {
+            width: 20px !important;
+            height: 20px;
+            background: #e74c3c;
+            transform: rotate(45deg);
+            top: 15px;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .task-bar.deadline {
+            width: 3px !important;
+            height: 100%;
+            background: #e74c3c;
+            top: 0;
+            padding: 0;
+            border-radius: 0;
+        }
+
+        .today-line {
+            width: 2px !important;
+            height: 100%;
+            background: #27ae60;
+            top: 0;
+            padding: 0;
+            border-radius: 0;
+            box-shadow: 0 0 5px rgba(39, 174, 96, 0.5);
+        }
+
+        .progress-bar {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px 0 0 4px;
+            pointer-events: none;
+        }
+
+        .resize-handle {
+            position: absolute;
+            width: 8px;
+            height: 100%;
+            top: 0;
+            cursor: ew-resize;
+            background: rgba(255,255,255,0.3);
+        }
+
+        .resize-handle.left {
+            left: 0;
+        }
+
+        .resize-handle.right {
+            right: 0;
+        }
+
+        .dependency-line {
+            position: absolute;
+            stroke: #95a5a6;
+            stroke-width: 2;
+            fill: none;
+            pointer-events: none;
+        }
+
+        .dependency-line.critical {
+            stroke: #e74c3c;
+            stroke-width: 3;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-content h2 {
+            margin-bottom: 20px;
+        }
+
+        .modal-content label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .modal-content input, .modal-content select, .modal-content textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .modal-buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .modal-buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .modal-buttons .save {
+            background: #27ae60;
+            color: white;
+        }
+
+        .modal-buttons .cancel {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .help-content {
+            line-height: 1.6;
+        }
+
+        .help-content h3 {
+            margin-top: 15px;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .help-content ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .help-content li {
+            margin-bottom: 5px;
+        }
+
+        select[multiple] {
+            min-height: 100px;
+        }
+
+        .color-preview {
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            border: 2px solid #bdc3c7;
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="toolbar">
+            <h1>📊 Gantt Chart Builder Pro <span class="credit">Parmiters School Computing Dept</span></h1>
+            <label>Start Date:</label>
+            <input type="date" id="startDate">
+            <label>Weeks:</label>
+            <input type="number" id="numWeeks" value="8" min="1" max="52" style="width: 60px;">
+            <button onclick="updateTimeline()">Update Timeline</button>
+            <button onclick="addTask()">+ Add Task</button>
+            <button onclick="addMilestone()">+ Add Milestone</button>
+            <button onclick="setDeadline()">Set Deadline</button>
+            <button onclick="toggleCriticalPath()" id="criticalPathBtn">Show Critical Path</button>
+            <button onclick="manageAssignees()">👥 Manage Assignees</button>
+            <button onclick="saveProject()">💾 Save JSON</button>
+            <button onclick="loadProject()">📂 Load JSON</button>
+            <button onclick="exportToPNG()">📷 Export PNG</button>
+            <button onclick="showHelp()">❓ Help</button>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-item">
+                <span class="stat-label">Total Tasks:</span>
+                <span class="stat-value" id="statTotal">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Completed:</span>
+                <span class="stat-value" id="statCompleted">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">In Progress:</span>
+                <span class="stat-value" id="statInProgress">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Avg Progress:</span>
+                <span class="stat-value" id="statAvgProgress">0%</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Duration:</span>
+                <span class="stat-value" id="statDuration">0 days</span>
+            </div>
+        </div>
+
+        <div class="filter-bar">
+            <label>🔍 Search:</label>
+            <input type="text" id="searchFilter" placeholder="Search tasks..." oninput="applyFilters()">
+            <label>👤 Assignee:</label>
+            <select id="assigneeFilter" onchange="applyFilters()">
+                <option value="">All</option>
+            </select>
+            <label>⚡ Priority:</label>
+            <select id="priorityFilter" onchange="applyFilters()">
+                <option value="">All</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
+        </div>
+
+        <div class="gantt-wrapper">
+            <div class="task-list">
+                <div class="task-list-header">Task Details</div>
+                <div id="taskListBody"></div>
+            </div>
+            <div class="timeline">
+                <div class="timeline-header" id="timelineHeader"></div>
+                <div class="timeline-grid" id="timelineGrid"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="taskModal">
+        <div class="modal-content">
+            <h2 id="modalTitle">Add Task</h2>
+            <label>Task Name:</label>
+            <input type="text" id="modalTaskName">
+            <label>Type:</label>
+            <select id="modalTaskType">
+                <option value="child">Child Task</option>
+                <option value="parent">Parent Task</option>
+                <option value="milestone">Milestone</option>
+            </select>
+            <label>Start Date:</label>
+            <input type="date" id="modalStartDate">
+            <label>Duration (days):</label>
+            <input type="number" id="modalDuration" value="3" min="1">
+            <label>Progress (%):</label>
+            <input type="number" id="modalProgress" value="0" min="0" max="100">
+            <label>Assignee:</label>
+            <select id="modalAssignee">
+                <option value="">None</option>
+            </select>
+            <input type="text" id="modalAssigneeCustom" placeholder="Or type new assignee name" style="margin-top: 5px;">
+            <label>Priority:</label>
+            <select id="modalPriority">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
+            <label>Custom Color:</label>
+            <input type="color" id="modalColor" value="#3498db">
+            <span class="color-preview" id="colorPreview"></span>
+            <label>Parent Task (optional):</label>
+            <select id="modalParent">
+                <option value="">None</option>
+            </select>
+            <label>Dependencies (tasks that must finish before this one):</label>
+            <select id="modalDependencies" multiple>
+            </select>
+            <small style="color: #7f8c8d; font-size: 11px;">Hold Ctrl/Cmd to select multiple</small>
+            <div class="modal-buttons">
+                <button class="cancel" onclick="closeModal()">Cancel</button>
+                <button class="save" onclick="saveTask()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="helpModal">
+        <div class="modal-content">
+            <h2>Gantt Chart Pro - User Guide</h2>
+            <div class="help-content">
+                <h3>Key Features</h3>
+                <ul>
+                    <li><strong>Task Management:</strong> Create parent tasks, child tasks, and milestones</li>
+                    <li><strong>Dependencies:</strong> Link tasks that depend on each other</li>
+                    <li><strong>Critical Path:</strong> Automatically identifies the longest sequence of dependent tasks</li>
+                    <li><strong>Progress Tracking:</strong> Set completion percentage for each task</li>
+                    <li><strong>Filtering:</strong> Search and filter by assignee and priority</li>
+                </ul>
+
+                <h3>How to Use</h3>
+                <ul>
+                    <li><strong>Add Tasks:</strong> Click "+ Add Task" button</li>
+                    <li><strong>Edit Tasks:</strong> Double-click task name in the list</li>
+                    <li><strong>Move Tasks:</strong> Drag task bars left/right to change dates</li>
+                    <li><strong>Resize Tasks:</strong> Drag the edges of task bars to change duration</li>
+                    <li><strong>Collapse/Expand:</strong> Click ▼/▶ next to parent tasks</li>
+                    <li><strong>Reorder:</strong> Use ↑/↓ buttons when hovering over tasks</li>
+                </ul>
+
+                <h3>Dependencies & Critical Path</h3>
+                <ul>
+                    <li>Select dependencies when creating/editing tasks</li>
+                    <li>Grey lines show task dependencies</li>
+                    <li>Click "Show Critical Path" to highlight the longest task chain</li>
+                    <li>Critical path tasks appear in red</li>
+                </ul>
+
+                <h3>Visual Indicators</h3>
+                <ul>
+                    <li><strong>Colored dots:</strong> Task priority (grey=low, orange=medium, red=high)</li>
+                    <li><strong>Progress bars:</strong> White overlay shows task completion</li>
+                    <li><strong>Green line:</strong> Today's date</li>
+                    <li><strong>Red line:</strong> Project deadline</li>
+                </ul>
+
+                <h3>Save & Export</h3>
+                <ul>
+                    <li><strong>Save JSON:</strong> Download project as JSON file</li>
+                    <li><strong>Load JSON:</strong> Import previously saved project</li>
+                    <li><strong>Export PNG:</strong> Download chart as PNG image</li>
+                </ul>
+            </div>
+            <div class="modal-buttons">
+                <button class="cancel" onclick="closeHelp()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="assigneeModal">
+        <div class="modal-content">
+            <h2>Manage Team Assignees</h2>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px;">Add New Assignee:</label>
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" id="newAssigneeName" placeholder="Enter name" style="flex: 1;">
+                    <button onclick="addAssignee()" style="background: #27ae60; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer;">Add</button>
+                </div>
+            </div>
+            <div>
+                <label style="display: block; margin-bottom: 5px; font-weight: bold;">Current Assignees:</label>
+                <div id="assigneeList" style="max-height: 300px; overflow-y: auto; border: 1px solid #bdc3c7; border-radius: 4px; padding: 10px;">
+                </div>
+            </div>
+            <div class="modal-buttons">
+                <button class="cancel" onclick="closeAssigneeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <input type="file" id="fileInput" style="display: none;" accept=".json">
+
+    <script>
+        let startDate = new Date();
+        startDate.setHours(0, 0, 0, 0);
+        let numWeeks = 8;
+        let tasks = [];
+        let deadline = null;
+        let draggedTask = null;
+        let resizeTask = null;
+        let resizeDirection = null;
+        let dragStartX = 0;
+        let editingTaskId = null;
+        let showCritical = false;
+        let criticalPath = [];
+        let filteredTasks = [];
+        let assigneeList = [];
+
+        const dayWidth = 20;
+
+        function initializeDate() {
+            const dateInput = document.getElementById('startDate');
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            dateInput.value = today.toISOString().split('T')[0];
+            startDate = new Date(today);
+        }
+
+        function updateTimeline() {
+            const dateInput = document.getElementById('startDate').value;
+            if (dateInput) {
+                startDate = new Date(dateInput);
+                startDate.setHours(0, 0, 0, 0);
+            }
+            numWeeks = parseInt(document.getElementById('numWeeks').value) || 8;
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const searchTerm = document.getElementById('searchFilter').value.toLowerCase();
+            const assigneeFilter = document.getElementById('assigneeFilter').value;
+            const priorityFilter = document.getElementById('priorityFilter').value;
+
+            filteredTasks = tasks.filter(task => {
+                const matchesSearch = task.name.toLowerCase().includes(searchTerm) || 
+                                    (task.assignee && task.assignee.toLowerCase().includes(searchTerm));
+                const matchesAssignee = !assigneeFilter || task.assignee === assigneeFilter;
+                const matchesPriority = !priorityFilter || task.priority === priorityFilter;
+                
+                return matchesSearch && matchesAssignee && matchesPriority;
+            });
+
+            updateAssigneeFilter();
+            calculateCriticalPath();
+            updateStats();
+            render();
+        }
+
+        function updateAssigneeFilter() {
+            const select = document.getElementById('assigneeFilter');
+            const currentValue = select.value;
+            const assignees = [...new Set([...assigneeList, ...tasks.map(t => t.assignee).filter(Boolean)])];
+            
+            select.innerHTML = '<option value="">All</option>';
+            assignees.forEach(assignee => {
+                select.innerHTML += `<option value="${assignee}">${assignee}</option>`;
+            });
+            select.value = currentValue;
+        }
+
+        function manageAssignees() {
+            renderAssigneeList();
+            document.getElementById('assigneeModal').classList.add('active');
+        }
+
+        function renderAssigneeList() {
+            const listDiv = document.getElementById('assigneeList');
+            if (assigneeList.length === 0) {
+                listDiv.innerHTML = '<p style="color: #7f8c8d; font-style: italic;">No assignees added yet</p>';
+            } else {
+                listDiv.innerHTML = assigneeList.map(assignee => `
+                    <div style="display: flex; align-items: center; padding: 8px; border-bottom: 1px solid #ecf0f1; gap: 10px;">
+                        <span style="flex: 1; font-size: 14px;">${assignee}</span>
+                        <button onclick="removeAssignee('${assignee}')" style="background: #e74c3c; color: white; border: none; padding: 4px 8px; border-radius: 3px; cursor: pointer; font-size: 11px;">Remove</button>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function addAssignee() {
+            const name = document.getElementById('newAssigneeName').value.trim();
+            if (!name) {
+                alert('Please enter an assignee name');
+                return;
+            }
+            if (assigneeList.includes(name)) {
+                alert('This assignee already exists');
+                return;
+            }
+            assigneeList.push(name);
+            document.getElementById('newAssigneeName').value = '';
+            renderAssigneeList();
+            updateAssigneeFilter();
+        }
+
+        function removeAssignee(name) {
+            if (confirm(`Remove "${name}" from assignee list?\n\nNote: This won't remove them from existing tasks.`)) {
+                assigneeList = assigneeList.filter(a => a !== name);
+                renderAssigneeList();
+                updateAssigneeFilter();
+            }
+        }
+
+        function closeAssigneeModal() {
+            document.getElementById('assigneeModal').classList.remove('active');
+        }
+
+        function calculateCriticalPath() {
+            criticalPath = [];
+            if (tasks.length === 0) return;
+
+            const taskMap = {};
+            tasks.forEach(t => {
+                taskMap[t.id] = {
+                    ...t,
+                    earlyStart: 0,
+                    earlyFinish: 0,
+                    lateStart: Infinity,
+                    lateFinish: Infinity,
+                    slack: 0
+                };
+            });
+
+            // Forward pass
+            tasks.forEach(task => {
+                const t = taskMap[task.id];
+                if (task.dependencies && task.dependencies.length > 0) {
+                    let maxFinish = 0;
+                    task.dependencies.forEach(depId => {
+                        const dep = taskMap[depId];
+                        if (dep) {
+                            maxFinish = Math.max(maxFinish, dep.earlyFinish);
+                        }
+                    });
+                    t.earlyStart = maxFinish;
+                } else {
+                    const dayOffset = Math.floor((new Date(task.start) - startDate) / (1000 * 60 * 60 * 24));
+                    t.earlyStart = dayOffset;
+                }
+                t.earlyFinish = t.earlyStart + (task.duration || 1);
+            });
+
+            // Find project end
+            const projectEnd = Math.max(...Object.values(taskMap).map(t => t.earlyFinish));
+
+            // Backward pass
+            const reverseTasks = [...tasks].reverse();
+            reverseTasks.forEach(task => {
+                const t = taskMap[task.id];
+                
+                const dependentTasks = tasks.filter(dt => 
+                    dt.dependencies && dt.dependencies.includes(task.id)
+                );
+                
+                if (dependentTasks.length === 0) {
+                    t.lateFinish = projectEnd;
+                } else {
+                    t.lateFinish = Math.min(...dependentTasks.map(dt => taskMap[dt.id].lateStart));
+                }
+                t.lateStart = t.lateFinish - (task.duration || 1);
+                t.slack = t.lateStart - t.earlyStart;
+            });
+
+            // Find critical path (tasks with zero slack)
+            criticalPath = tasks.filter(task => {
+                const t = taskMap[task.id];
+                return Math.abs(t.slack) < 0.01;
+            }).map(t => t.id);
+        }
+
+        function toggleCriticalPath() {
+            showCritical = !showCritical;
+            const btn = document.getElementById('criticalPathBtn');
+            btn.textContent = showCritical ? 'Hide Critical Path' : 'Show Critical Path';
+            btn.style.background = showCritical ? '#e74c3c' : '#3498db';
+            render();
+        }
+
+        function updateStats() {
+            const total = tasks.filter(t => t.type !== 'milestone').length;
+            const completed = tasks.filter(t => t.type !== 'milestone' && t.progress === 100).length;
+            const inProgress = tasks.filter(t => t.type !== 'milestone' && t.progress > 0 && t.progress < 100).length;
+            const avgProgress = total > 0 ? Math.round(tasks.filter(t => t.type !== 'milestone').reduce((sum, t) => sum + (t.progress || 0), 0) / total) : 0;
+            
+            let minDate = null, maxDate = null;
+            tasks.forEach(t => {
+                if (t.type === 'milestone') return;
+                const start = new Date(t.start);
+                const end = new Date(start);
+                end.setDate(end.getDate() + (t.duration || 1));
+                
+                if (!minDate || start < minDate) minDate = start;
+                if (!maxDate || end > maxDate) maxDate = end;
+            });
+            
+            const duration = minDate && maxDate ? Math.ceil((maxDate - minDate) / (1000 * 60 * 60 * 24)) : 0;
+
+            document.getElementById('statTotal').textContent = total;
+            document.getElementById('statCompleted').textContent = completed;
+            document.getElementById('statInProgress').textContent = inProgress;
+            document.getElementById('statAvgProgress').textContent = avgProgress + '%';
+            document.getElementById('statDuration').textContent = duration + ' days';
+        }
+
+        function render() {
+            renderTimelineHeader();
+            renderTimelineGrid();
+            renderTaskList();
+        }
+
+        function renderTimelineHeader() {
+            const header = document.getElementById('timelineHeader');
+            const totalDays = numWeeks * 7;
+            
+            let weekHTML = '<div class="week-header">';
+            let dayHTML = '<div class="day-header">';
+            
+            for (let w = 0; w < numWeeks; w++) {
+                const weekStart = new Date(startDate);
+                weekStart.setDate(startDate.getDate() + w * 7);
+                const weekEnd = new Date(weekStart);
+                weekEnd.setDate(weekStart.getDate() + 6);
+                
+                weekHTML += `<div class="week-cell">${formatDate(weekStart)} - ${formatDate(weekEnd)}</div>`;
+                
+                for (let d = 0; d < 7; d++) {
+                    const day = new Date(weekStart);
+                    day.setDate(weekStart.getDate() + d);
+                    const dayLetter = ['S', 'M', 'T', 'W', 'T', 'F', 'S'][day.getDay()];
+                    dayHTML += `<div class="day-cell">${dayLetter}</div>`;
+                }
+            }
+            
+            weekHTML += '</div>';
+            dayHTML += '</div>';
+            header.innerHTML = weekHTML + dayHTML;
+        }
+
+        function renderTimelineGrid() {
+            const grid = document.getElementById('timelineGrid');
+            const totalDays = numWeeks * 7;
+            
+            grid.innerHTML = '';
+
+            const svgNS = "http://www.w3.org/2000/svg";
+            const svg = document.createElementNS(svgNS, "svg");
+            svg.style.position = 'absolute';
+            svg.style.top = '0';
+            svg.style.left = '0';
+            svg.style.width = '100%';
+            svg.style.height = '100%';
+            svg.style.pointerEvents = 'none';
+            svg.style.zIndex = '1';
+            
+            filteredTasks.forEach((task, index) => {
+                // Skip if not visible (parent is collapsed)
+                if (!isTaskVisible(task)) {
+                    return;
+                }
+                
+                if (task.type !== 'milestone') {
+                    const row = document.createElement('div');
+                    row.className = 'grid-row';
+                    
+                    for (let d = 0; d < totalDays; d++) {
+                        const cellDate = new Date(startDate);
+                        cellDate.setDate(startDate.getDate() + d);
+                        const isWeekend = cellDate.getDay() === 0 || cellDate.getDay() === 6;
+                        
+                        const cell = document.createElement('div');
+                        cell.className = 'grid-cell' + (isWeekend ? ' weekend' : '');
+                        row.appendChild(cell);
+                    }
+                    
+                    const bar = createTaskBar(task, index);
+                    row.appendChild(bar);
+                    
+                    grid.appendChild(row);
+                }
+            });
+
+            // Draw dependency lines
+            filteredTasks.forEach((task, index) => {
+                if (task.dependencies && task.dependencies.length > 0) {
+                    task.dependencies.forEach(depId => {
+                        const depTask = tasks.find(t => t.id === depId);
+                        if (depTask && filteredTasks.includes(task) && filteredTasks.includes(depTask)) {
+                            const depIndex = filteredTasks.indexOf(depTask);
+                            const taskIndex = filteredTasks.indexOf(task);
+                            
+                            const depRow = getTaskRowIndex(tasks.indexOf(depTask));
+                            const taskRow = getTaskRowIndex(tasks.indexOf(task));
+                            
+                            if (depRow >= 0 && taskRow >= 0) {
+                                const depEnd = Math.floor((new Date(depTask.start) - startDate) / (1000 * 60 * 60 * 24)) + (depTask.duration || 1);
+                                const taskStart = Math.floor((new Date(task.start) - startDate) / (1000 * 60 * 60 * 24));
+                                
+                                const x1 = depEnd * dayWidth;
+                                const y1 = depRow * 50 + 25;
+                                const x2 = taskStart * dayWidth;
+                                const y2 = taskRow * 50 + 25;
+                                
+                                const line = document.createElementNS(svgNS, "path");
+                                const midX = (x1 + x2) / 2;
+                                const d = `M ${x1} ${y1} L ${midX} ${y1} L ${midX} ${y2} L ${x2} ${y2}`;
+                                line.setAttribute("d", d);
+                                line.setAttribute("class", showCritical && criticalPath.includes(task.id) && criticalPath.includes(depId) ? "dependency-line critical" : "dependency-line");
+                                svg.appendChild(line);
+                            }
+                        }
+                    });
+                }
+            });
+
+            grid.appendChild(svg);
+
+            // Render milestones and deadline
+            const milestoneRow = document.createElement('div');
+            milestoneRow.style.position = 'absolute';
+            milestoneRow.style.width = '100%';
+            milestoneRow.style.height = '100%';
+            milestoneRow.style.top = '0';
+            milestoneRow.style.pointerEvents = 'none';
+            milestoneRow.style.zIndex = '2';
+
+            filteredTasks.forEach((task, index) => {
+                if (task.type === 'milestone') {
+                    const dayOffset = Math.floor((new Date(task.start) - startDate) / (1000 * 60 * 60 * 24));
+                    const rowIndex = getTaskRowIndex(tasks.indexOf(task));
+                    
+                    if (dayOffset >= 0 && dayOffset < totalDays && rowIndex >= 0) {
+                        const milestone = document.createElement('div');
+                        milestone.className = 'task-bar milestone';
+                        milestone.style.left = `${dayOffset * dayWidth + 10}px`;
+                        milestone.style.top = `${rowIndex * 50 + 15}px`;
+                        milestone.style.pointerEvents = 'auto';
+                        milestone.title = task.name;
+                        milestone.addEventListener('mousedown', (e) => startDrag(e, task, tasks.indexOf(task)));
+                        milestoneRow.appendChild(milestone);
+                    }
+                }
+            });
+
+            // Today line
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const todayOffset = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+            if (todayOffset >= 0 && todayOffset < totalDays) {
+                const todayLine = document.createElement('div');
+                todayLine.className = 'task-bar today-line';
+                todayLine.style.left = `${todayOffset * dayWidth}px`;
+                todayLine.style.top = '0';
+                todayLine.style.height = `${grid.scrollHeight}px`;
+                todayLine.title = `Today: ${formatDate(today)}`;
+                milestoneRow.appendChild(todayLine);
+            }
+
+            if (deadline) {
+                const dayOffset = Math.floor((new Date(deadline) - startDate) / (1000 * 60 * 60 * 24));
+                if (dayOffset >= 0 && dayOffset < totalDays) {
+                    const deadlineMark = document.createElement('div');
+                    deadlineMark.className = 'task-bar deadline';
+                    deadlineMark.style.left = `${dayOffset * dayWidth}px`;
+                    deadlineMark.style.top = '0';
+                    deadlineMark.style.height = `${grid.scrollHeight}px`;
+                    deadlineMark.title = `Deadline: ${formatDate(new Date(deadline))}`;
+                    milestoneRow.appendChild(deadlineMark);
+                }
+            }
+
+            grid.appendChild(milestoneRow);
+        }
+
+        function getTaskRowIndex(taskIndex) {
+            let rowIndex = 0;
+            for (let i = 0; i < taskIndex; i++) {
+                if (isTaskVisible(tasks[i]) && filteredTasks.includes(tasks[i]) && tasks[i].type !== 'milestone') {
+                    rowIndex++;
+                }
+            }
+            
+            return (isTaskVisible(tasks[taskIndex]) && filteredTasks.includes(tasks[taskIndex])) ? rowIndex : -1;
+        }
+
+        function createTaskBar(task, index) {
+            const dayOffset = Math.floor((new Date(task.start) - startDate) / (1000 * 60 * 60 * 24));
+            const duration = task.duration || 1;
+            
+            const bar = document.createElement('div');
+            bar.className = `task-bar ${task.type}`;
+            if (showCritical && criticalPath.includes(task.id)) {
+                bar.classList.add('critical');
+            }
+            if (task.priority === 'high' && !showCritical) {
+                bar.classList.add('high-priority');
+            }
+            
+            bar.style.left = `${dayOffset * dayWidth}px`;
+            bar.style.width = `${duration * dayWidth}px`;
+            if (task.color && task.type !== 'parent') {
+                bar.style.background = task.color;
+            }
+            
+            let tooltipText = `${task.name}\nStart: ${formatDate(new Date(task.start))}\nDuration: ${duration} days`;
+            if (task.assignee) tooltipText += `\nAssignee: ${task.assignee}`;
+            if (task.progress !== undefined) tooltipText += `\nProgress: ${task.progress}%`;
+            if (task.priority) tooltipText += `\nPriority: ${task.priority}`;
+            
+            bar.title = tooltipText;
+            
+            bar.addEventListener('mousedown', (e) => {
+                if (e.target.classList.contains('resize-handle')) return;
+                startDrag(e, task, tasks.indexOf(task));
+            });
+
+            // Progress bar
+            if (task.progress > 0 && task.type !== 'parent') {
+                const progressBar = document.createElement('div');
+                progressBar.className = 'progress-bar';
+                progressBar.style.width = `${task.progress}%`;
+                bar.appendChild(progressBar);
+            }
+
+            if (task.type !== 'parent') {
+                const leftHandle = document.createElement('div');
+                leftHandle.className = 'resize-handle left';
+                leftHandle.addEventListener('mousedown', (e) => startResize(e, task, tasks.indexOf(task), 'left'));
+                bar.appendChild(leftHandle);
+
+                const rightHandle = document.createElement('div');
+                rightHandle.className = 'resize-handle right';
+                rightHandle.addEventListener('mousedown', (e) => startResize(e, task, tasks.indexOf(task), 'right'));
+                bar.appendChild(rightHandle);
+            }
+            
+            return bar;
+        }
+
+        function renderTaskList() {
+            const taskListBody = document.getElementById('taskListBody');
+            taskListBody.innerHTML = '';
+            
+            filteredTasks.forEach((task, index) => {
+                // Skip if not visible (parent is collapsed)
+                if (!isTaskVisible(task)) {
+                    return;
+                }
+
+                const row = document.createElement('div');
+                row.className = 'task-row';
+                
+                const indent = task.parentId ? '<span class="task-indent"></span>' : '';
+                const toggle = task.type === 'parent' 
+                    ? `<span class="task-toggle" onclick="toggleCollapse(${task.id})">${task.collapsed ? '▶' : '▼'}</span>`
+                    : '<span class="task-indent"></span>';
+                
+                const icon = getTaskIcon(task.type);
+                const priorityDot = task.priority ? `<span class="priority-indicator priority-${task.priority}"></span>` : '';
+                
+                const actualIndex = tasks.indexOf(task);
+                const metaInfo = [];
+                if (task.assignee) metaInfo.push(`👤 ${task.assignee}`);
+                if (task.progress !== undefined) metaInfo.push(`${task.progress}%`);
+                const metaHTML = metaInfo.length > 0 ? `<div class="task-meta">${metaInfo.join(' • ')}</div>` : '';
+                
+                row.innerHTML = `
+                    ${indent}
+                    ${toggle}
+                    ${priorityDot}
+                    <span class="task-icon">${icon}</span>
+                    <span class="task-name" ondblclick="editTask(${task.id})">
+                        <div class="task-main-name">${task.name}</div>
+                        ${metaHTML}
+                    </span>
+                    <div class="move-buttons">
+                        <button class="move-btn" onclick="moveTask(${actualIndex}, -1)" ${actualIndex === 0 ? 'disabled' : ''}>↑</button>
+                        <button class="move-btn" onclick="moveTask(${actualIndex}, 1)" ${actualIndex === tasks.length - 1 ? 'disabled' : ''}>↓</button>
+                    </div>
+                    <button class="task-delete" onclick="deleteTask(${task.id})">×</button>
+                `;
+                
+                taskListBody.appendChild(row);
+            });
+        }
+
+        function getTaskIcon(type) {
+            switch(type) {
+                case 'parent': return '📁';
+                case 'child': return '📄';
+                case 'milestone': return '🏁';
+                default: return '📄';
+            }
+        }
+
+        function moveTask(index, direction) {
+            const newIndex = index + direction;
+            if (newIndex < 0 || newIndex >= tasks.length) return;
+            
+            const temp = tasks[index];
+            tasks[index] = tasks[newIndex];
+            tasks[newIndex] = temp;
+            
+            applyFilters();
+        }
+
+        function startDrag(e, task, index) {
+            e.preventDefault();
+            e.stopPropagation();
+            draggedTask = { task, index };
+            dragStartX = e.clientX;
+            
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', stopDrag);
+        }
+
+        function drag(e) {
+            if (!draggedTask) return;
+            
+            const deltaX = e.clientX - dragStartX;
+            const deltaDays = Math.round(deltaX / dayWidth);
+            
+            if (deltaDays !== 0) {
+                const newStart = new Date(draggedTask.task.start);
+                newStart.setDate(newStart.getDate() + deltaDays);
+                draggedTask.task.start = newStart.toISOString().split('T')[0];
+                dragStartX = e.clientX;
+                render();
+            }
+        }
+
+        function stopDrag() {
+            draggedTask = null;
+            document.removeEventListener('mousemove', drag);
+            document.removeEventListener('mouseup', stopDrag);
+        }
+
+        function startResize(e, task, index, direction) {
+            e.preventDefault();
+            e.stopPropagation();
+            resizeTask = { task, index };
+            resizeDirection = direction;
+            dragStartX = e.clientX;
+            
+            document.addEventListener('mousemove', resize);
+            document.addEventListener('mouseup', stopResize);
+        }
+
+        function resize(e) {
+            if (!resizeTask) return;
+            
+            const deltaX = e.clientX - dragStartX;
+            const deltaDays = Math.round(deltaX / dayWidth);
+            
+            if (deltaDays !== 0) {
+                if (resizeDirection === 'left') {
+                    const newStart = new Date(resizeTask.task.start);
+                    newStart.setDate(newStart.getDate() + deltaDays);
+                    resizeTask.task.start = newStart.toISOString().split('T')[0];
+                    resizeTask.task.duration = Math.max(1, resizeTask.task.duration - deltaDays);
+                } else {
+                    resizeTask.task.duration = Math.max(1, resizeTask.task.duration + deltaDays);
+                }
+                dragStartX = e.clientX;
+                render();
+            }
+        }
+
+        function stopResize() {
+            resizeTask = null;
+            resizeDirection = null;
+            document.removeEventListener('mousemove', resize);
+            document.removeEventListener('mouseup', stopResize);
+        }
+
+        function toggleCollapse(taskId) {
+            const task = tasks.find(t => t.id === taskId);
+            if (task) {
+                task.collapsed = !task.collapsed;
+                applyFilters();
+            }
+        }
+
+        function addTask() {
+            editingTaskId = null;
+            document.getElementById('modalTitle').textContent = 'Add Task';
+            document.getElementById('modalTaskName').value = '';
+            document.getElementById('modalTaskType').value = 'child';
+            document.getElementById('modalStartDate').value = startDate.toISOString().split('T')[0];
+            document.getElementById('modalDuration').value = 3;
+            document.getElementById('modalProgress').value = 0;
+            updateAssigneeSelect();
+            document.getElementById('modalAssigneeCustom').value = '';
+            document.getElementById('modalPriority').value = 'medium';
+            document.getElementById('modalColor').value = '#3498db';
+            updateColorPreview();
+            updateParentSelect();
+            updateDependencySelect();
+            document.getElementById('taskModal').classList.add('active');
+        }
+
+        function addMilestone() {
+            editingTaskId = null;
+            document.getElementById('modalTitle').textContent = 'Add Milestone';
+            document.getElementById('modalTaskName').value = '';
+            document.getElementById('modalTaskType').value = 'milestone';
+            document.getElementById('modalStartDate').value = startDate.toISOString().split('T')[0];
+            document.getElementById('modalDuration').value = 1;
+            document.getElementById('modalProgress').value = 0;
+            updateAssigneeSelect();
+            document.getElementById('modalAssigneeCustom').value = '';
+            document.getElementById('modalPriority').value = 'high';
+            document.getElementById('modalColor').value = '#e74c3c';
+            updateColorPreview();
+            updateParentSelect();
+            updateDependencySelect();
+            document.getElementById('taskModal').classList.add('active');
+        }
+
+        function editTask(taskId) {
+            const task = tasks.find(t => t.id === taskId);
+            if (!task) return;
+            
+            editingTaskId = taskId;
+            document.getElementById('modalTitle').textContent = 'Edit Task';
+            document.getElementById('modalTaskName').value = task.name;
+            document.getElementById('modalTaskType').value = task.type;
+            document.getElementById('modalStartDate').value = task.start;
+            document.getElementById('modalDuration').value = task.duration || 1;
+            document.getElementById('modalProgress').value = task.progress || 0;
+            updateAssigneeSelect();
+            document.getElementById('modalAssignee').value = task.assignee || '';
+            document.getElementById('modalAssigneeCustom').value = '';
+            document.getElementById('modalPriority').value = task.priority || 'medium';
+            document.getElementById('modalColor').value = task.color || '#3498db';
+            updateColorPreview();
+            updateParentSelect();
+            updateDependencySelect();
+            document.getElementById('modalParent').value = task.parentId || '';
+            
+            const depSelect = document.getElementById('modalDependencies');
+            Array.from(depSelect.options).forEach(opt => {
+                opt.selected = task.dependencies && task.dependencies.includes(parseInt(opt.value));
+            });
+            
+            document.getElementById('taskModal').classList.add('active');
+        }
+
+        function updateAssigneeSelect() {
+            const select = document.getElementById('modalAssignee');
+            const allAssignees = [...new Set([...assigneeList, ...tasks.map(t => t.assignee).filter(Boolean)])];
+            
+            select.innerHTML = '<option value="">None</option>';
+            allAssignees.forEach(assignee => {
+                select.innerHTML += `<option value="${assignee}">${assignee}</option>`;
+            });
+        }
+
+        function updateParentSelect() {
+            const select = document.getElementById('modalParent');
+            select.innerHTML = '<option value="">None</option>';
+            tasks.filter(t => t.type === 'parent').forEach(t => {
+                if (editingTaskId !== t.id) {
+                    select.innerHTML += `<option value="${t.id}">${t.name}</option>`;
+                }
+            });
+        }
+        
+        function isTaskVisible(task) {
+            // Check if task should be visible based on parent collapse state
+            if (!task.parentId) return true;
+            
+            const parent = tasks.find(t => t.id === task.parentId);
+            if (!parent) return true;
+            
+            if (parent.collapsed) return false;
+            
+            // Recursively check if parent is visible
+            return isTaskVisible(parent);
+        }
+
+        function updateDependencySelect() {
+            const select = document.getElementById('modalDependencies');
+            select.innerHTML = '';
+            tasks.forEach(t => {
+                if (editingTaskId !== t.id && t.type !== 'milestone') {
+                    select.innerHTML += `<option value="${t.id}">${t.name}</option>`;
+                }
+            });
+        }
+
+        function updateColorPreview() {
+            const color = document.getElementById('modalColor').value;
+            document.getElementById('colorPreview').style.background = color;
+        }
+
+        document.getElementById('modalColor').addEventListener('input', updateColorPreview);
+
+        function saveTask() {
+            const name = document.getElementById('modalTaskName').value;
+            const type = document.getElementById('modalTaskType').value;
+            const start = document.getElementById('modalStartDate').value;
+            const duration = parseInt(document.getElementById('modalDuration').value) || 1;
+            const progress = parseInt(document.getElementById('modalProgress').value) || 0;
+            const assigneeSelect = document.getElementById('modalAssignee').value;
+            const assigneeCustom = document.getElementById('modalAssigneeCustom').value.trim();
+            const assignee = assigneeCustom || assigneeSelect || null;
+            const priority = document.getElementById('modalPriority').value;
+            const color = document.getElementById('modalColor').value;
+            const parentId = document.getElementById('modalParent').value || null;
+            
+            const depSelect = document.getElementById('modalDependencies');
+            const dependencies = Array.from(depSelect.selectedOptions).map(opt => parseInt(opt.value));
+            
+            if (!name) {
+                alert('Please enter a task name');
+                return;
+            }
+            
+            // Add custom assignee to list if new
+            if (assigneeCustom && !assigneeList.includes(assigneeCustom)) {
+                assigneeList.push(assigneeCustom);
+            }
+            
+            if (editingTaskId !== null) {
+                const task = tasks.find(t => t.id === editingTaskId);
+                if (task) {
+                    task.name = name;
+                    task.type = type;
+                    task.start = start;
+                    task.duration = duration;
+                    task.progress = progress;
+                    task.assignee = assignee;
+                    task.priority = priority;
+                    task.color = color;
+                    task.parentId = parentId;
+                    task.dependencies = dependencies;
+                }
+            } else {
+                const newTask = {
+                    id: Date.now(),
+                    name,
+                    type,
+                    start,
+                    duration,
+                    progress,
+                    assignee,
+                    priority,
+                    color,
+                    parentId,
+                    dependencies,
+                    collapsed: false
+                };
+                tasks.push(newTask);
+            }
+            
+            closeModal();
+            applyFilters();
+        }
+
+        function deleteTask(taskId) {
+            if (confirm('Are you sure you want to delete this task?')) {
+                tasks = tasks.filter(t => {
+                    if (t.id === taskId || t.parentId === taskId) return false;
+                    if (t.dependencies) {
+                        t.dependencies = t.dependencies.filter(d => d !== taskId);
+                    }
+                    return true;
+                });
+                applyFilters();
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('taskModal').classList.remove('active');
+        }
+
+        function showHelp() {
+            document.getElementById('helpModal').classList.add('active');
+        }
+
+        function closeHelp() {
+            document.getElementById('helpModal').classList.remove('active');
+        }
+
+        function setDeadline() {
+            const date = prompt('Enter deadline date (YYYY-MM-DD):', deadline || '');
+            if (date) {
+                deadline = date;
+                render();
+            } else if (date === '') {
+                deadline = null;
+                render();
+            }
+        }
+
+        function saveProject() {
+            const project = {
+                startDate: startDate.toISOString().split('T')[0],
+                numWeeks,
+                tasks,
+                deadline,
+                assigneeList
+            };
+            
+            const json = JSON.stringify(project, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'gantt-project.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function loadProject() {
+            document.getElementById('fileInput').click();
+        }
+
+        function exportToPNG() {
+            const container = document.querySelector('.container');
+            const ganttWrapper = document.querySelector('.gantt-wrapper');
+            
+            // Store original styles
+            const originalMaxHeight = ganttWrapper.style.maxHeight;
+            const originalOverflow = ganttWrapper.style.overflow;
+            
+            // Temporarily expand to full size for capture
+            ganttWrapper.style.maxHeight = 'none';
+            ganttWrapper.style.overflow = 'visible';
+            
+            // Use html2canvas library
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+            script.onload = () => {
+                html2canvas(container, {
+                    backgroundColor: '#ffffff',
+                    scale: 2,
+                    logging: false,
+                    useCORS: true
+                }).then(canvas => {
+                    // Restore original styles
+                    ganttWrapper.style.maxHeight = originalMaxHeight;
+                    ganttWrapper.style.overflow = originalOverflow;
+                    
+                    // Download the image
+                    canvas.toBlob(blob => {
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `gantt-chart-${new Date().toISOString().split('T')[0]}.png`;
+                        a.click();
+                        URL.revokeObjectURL(url);
+                    });
+                }).catch(err => {
+                    // Restore original styles even on error
+                    ganttWrapper.style.maxHeight = originalMaxHeight;
+                    ganttWrapper.style.overflow = originalOverflow;
+                    alert('Error exporting PNG: ' + err.message);
+                });
+            };
+            script.onerror = () => {
+                ganttWrapper.style.maxHeight = originalMaxHeight;
+                ganttWrapper.style.overflow = originalOverflow;
+                alert('Failed to load export library. Please check your internet connection.');
+            };
+            document.head.appendChild(script);
+        }
+
+        document.getElementById('fileInput').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const project = JSON.parse(e.target.result);
+                    startDate = new Date(project.startDate);
+                    numWeeks = project.numWeeks;
+                    tasks = project.tasks || [];
+                    deadline = project.deadline;
+                    assigneeList = project.assigneeList || [];
+                    
+                    document.getElementById('startDate').value = project.startDate;
+                    document.getElementById('numWeeks').value = project.numWeeks;
+                    
+                    applyFilters();
+                } catch (err) {
+                    alert('Error loading project file: ' + err.message);
+                }
+            };
+            reader.readAsText(file);
+            e.target.value = '';
+        });
+
+        function formatDate(date) {
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            return `${month}/${day}`;
+        }
+
+        // Initialize
+        initializeDate();
+        updateTimeline();
+    </script>
+</body>
+</html>

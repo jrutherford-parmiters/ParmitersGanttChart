@@ -157,7 +157,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            min-height: 50px;
+            height: 50px;
             background: white;
             position: relative;
         }
@@ -179,6 +179,8 @@
             user-select: none;
             width: 16px;
             text-align: center;
+            color: #3498db;
+            font-weight: bold;
         }
 
         .task-name {
@@ -187,6 +189,7 @@
             display: flex;
             flex-direction: column;
             gap: 3px;
+            cursor: pointer;
         }
 
         .task-main-name {
@@ -310,7 +313,7 @@
 
         .grid-row {
             display: flex;
-            min-height: 50px;
+            height: 50px;
             border-bottom: 1px solid #ecf0f1;
             position: relative;
             min-width: min-content;
@@ -339,7 +342,7 @@
             font-weight: 500;
             user-select: none;
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-            overflow: hidden;
+            z-index: 2;
         }
 
         .task-bar.parent {
@@ -379,6 +382,7 @@
             top: 0;
             padding: 0;
             border-radius: 0;
+            z-index: 4;
         }
 
         .today-line {
@@ -389,6 +393,7 @@
             padding: 0;
             border-radius: 0;
             box-shadow: 0 0 5px rgba(39, 174, 96, 0.5);
+            z-index: 4;
         }
 
         .progress-bar {
@@ -410,13 +415,8 @@
             background: rgba(255,255,255,0.3);
         }
 
-        .resize-handle.left {
-            left: 0;
-        }
-
-        .resize-handle.right {
-            right: 0;
-        }
+        .resize-handle.left { left: 0; }
+        .resize-handle.right { right: 0; }
 
         .dependency-line {
             position: absolute;
@@ -493,38 +493,15 @@
             font-size: 14px;
         }
 
-        .modal-buttons .save {
-            background: #27ae60;
-            color: white;
-        }
+        .modal-buttons .save { background: #27ae60; color: white; }
+        .modal-buttons .cancel { background: #95a5a6; color: white; }
 
-        .modal-buttons .cancel {
-            background: #95a5a6;
-            color: white;
-        }
+        .help-content { line-height: 1.6; }
+        .help-content h3 { margin-top: 15px; margin-bottom: 10px; color: #2c3e50; }
+        .help-content ul { margin-left: 20px; margin-bottom: 10px; }
+        .help-content li { margin-bottom: 5px; }
 
-        .help-content {
-            line-height: 1.6;
-        }
-
-        .help-content h3 {
-            margin-top: 15px;
-            margin-bottom: 10px;
-            color: #2c3e50;
-        }
-
-        .help-content ul {
-            margin-left: 20px;
-            margin-bottom: 10px;
-        }
-
-        .help-content li {
-            margin-bottom: 5px;
-        }
-
-        select[multiple] {
-            min-height: 100px;
-        }
+        select[multiple] { min-height: 100px; }
 
         .color-preview {
             width: 30px;
@@ -558,35 +535,18 @@
         </div>
 
         <div class="stats-bar">
-            <div class="stat-item">
-                <span class="stat-label">Total Tasks:</span>
-                <span class="stat-value" id="statTotal">0</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">Completed:</span>
-                <span class="stat-value" id="statCompleted">0</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">In Progress:</span>
-                <span class="stat-value" id="statInProgress">0</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">Avg Progress:</span>
-                <span class="stat-value" id="statAvgProgress">0%</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">Duration:</span>
-                <span class="stat-value" id="statDuration">0 days</span>
-            </div>
+            <div class="stat-item"><span class="stat-label">Total Tasks:</span> <span class="stat-value" id="statTotal">0</span></div>
+            <div class="stat-item"><span class="stat-label">Completed:</span> <span class="stat-value" id="statCompleted">0</span></div>
+            <div class="stat-item"><span class="stat-label">In Progress:</span> <span class="stat-value" id="statInProgress">0</span></div>
+            <div class="stat-item"><span class="stat-label">Avg Progress:</span> <span class="stat-value" id="statAvgProgress">0%</span></div>
+            <div class="stat-item"><span class="stat-label">Duration:</span> <span class="stat-value" id="statDuration">0 days</span></div>
         </div>
 
         <div class="filter-bar">
             <label>🔍 Search:</label>
             <input type="text" id="searchFilter" placeholder="Search tasks..." oninput="applyFilters()">
             <label>👤 Assignee:</label>
-            <select id="assigneeFilter" onchange="applyFilters()">
-                <option value="">All</option>
-            </select>
+            <select id="assigneeFilter" onchange="applyFilters()"><option value="">All</option></select>
             <label>⚡ Priority:</label>
             <select id="priorityFilter" onchange="applyFilters()">
                 <option value="">All</option>
@@ -626,9 +586,7 @@
             <label>Progress (%):</label>
             <input type="number" id="modalProgress" value="0" min="0" max="100">
             <label>Assignee:</label>
-            <select id="modalAssignee">
-                <option value="">None</option>
-            </select>
+            <select id="modalAssignee"><option value="">None</option></select>
             <input type="text" id="modalAssigneeCustom" placeholder="Or type new assignee name" style="margin-top: 5px;">
             <label>Priority:</label>
             <select id="modalPriority">
@@ -640,13 +598,10 @@
             <input type="color" id="modalColor" value="#3498db">
             <span class="color-preview" id="colorPreview"></span>
             <label>Parent Task (optional):</label>
-            <select id="modalParent">
-                <option value="">None</option>
-            </select>
-            <label>Dependencies (tasks that must finish before this one):</label>
-            <select id="modalDependencies" multiple>
-            </select>
-            <small style="color: #7f8c8d; font-size: 11px;">Hold Ctrl/Cmd to select multiple</small>
+            <select id="modalParent"><option value="">None</option></select>
+            <label>Dependencies (must finish before this one):</label>
+            <select id="modalDependencies" multiple></select>
+            <button type="button" onclick="clearDependencies()" style="margin-top: 5px; font-size: 11px; padding: 4px; background: #eee; border: 1px solid #ccc; border-radius: 3px; cursor: pointer;">Clear Dependencies (No dependency)</button>
             <div class="modal-buttons">
                 <button class="cancel" onclick="closeModal()">Cancel</button>
                 <button class="save" onclick="saveTask()">Save</button>
@@ -660,49 +615,13 @@
             <div class="help-content">
                 <h3>Key Features</h3>
                 <ul>
-                    <li><strong>Task Management:</strong> Create parent tasks, child tasks, and milestones</li>
-                    <li><strong>Dependencies:</strong> Link tasks that depend on each other</li>
-                    <li><strong>Critical Path:</strong> Automatically identifies the longest sequence of dependent tasks</li>
-                    <li><strong>Progress Tracking:</strong> Set completion percentage for each task</li>
-                    <li><strong>Filtering:</strong> Search and filter by assignee and priority</li>
-                </ul>
-
-                <h3>How to Use</h3>
-                <ul>
-                    <li><strong>Add Tasks:</strong> Click "+ Add Task" button</li>
-                    <li><strong>Edit Tasks:</strong> Double-click task name in the list</li>
-                    <li><strong>Move Tasks:</strong> Drag task bars left/right to change dates</li>
-                    <li><strong>Resize Tasks:</strong> Drag the edges of task bars to change duration</li>
-                    <li><strong>Collapse/Expand:</strong> Click ▼/▶ next to parent tasks</li>
-                    <li><strong>Reorder:</strong> Use ↑/↓ buttons when hovering over tasks</li>
-                </ul>
-
-                <h3>Dependencies & Critical Path</h3>
-                <ul>
-                    <li>Select dependencies when creating/editing tasks</li>
-                    <li>Grey lines show task dependencies</li>
-                    <li>Click "Show Critical Path" to highlight the longest task chain</li>
-                    <li>Critical path tasks appear in red</li>
-                </ul>
-
-                <h3>Visual Indicators</h3>
-                <ul>
-                    <li><strong>Colored dots:</strong> Task priority (grey=low, orange=medium, red=high)</li>
-                    <li><strong>Progress bars:</strong> White overlay shows task completion</li>
-                    <li><strong>Green line:</strong> Today's date</li>
-                    <li><strong>Red line:</strong> Project deadline</li>
-                </ul>
-
-                <h3>Save & Export</h3>
-                <ul>
-                    <li><strong>Save JSON:</strong> Download project as JSON file</li>
-                    <li><strong>Load JSON:</strong> Import previously saved project</li>
-                    <li><strong>Export PNG:</strong> Download chart as PNG image</li>
+                    <li><strong>Expand/Collapse:</strong> Manage large projects by grouping tasks.</li>
+                    <li><strong>Dependencies:</strong> Grey lines show task relationships.</li>
+                    <li><strong>Critical Path:</strong> Longest task chain highlighted in red.</li>
+                    <li><strong>Milestones:</strong> Track key project dates on their own rows.</li>
                 </ul>
             </div>
-            <div class="modal-buttons">
-                <button class="cancel" onclick="closeHelp()">Close</button>
-            </div>
+            <div class="modal-buttons"><button class="cancel" onclick="closeHelp()">Close</button></div>
         </div>
     </div>
 
@@ -710,20 +629,14 @@
         <div class="modal-content">
             <h2>Manage Team Assignees</h2>
             <div style="margin-bottom: 15px;">
-                <label style="display: block; margin-bottom: 5px;">Add New Assignee:</label>
+                <label>Add New Assignee:</label>
                 <div style="display: flex; gap: 10px;">
                     <input type="text" id="newAssigneeName" placeholder="Enter name" style="flex: 1;">
                     <button onclick="addAssignee()" style="background: #27ae60; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer;">Add</button>
                 </div>
             </div>
-            <div>
-                <label style="display: block; margin-bottom: 5px; font-weight: bold;">Current Assignees:</label>
-                <div id="assigneeList" style="max-height: 300px; overflow-y: auto; border: 1px solid #bdc3c7; border-radius: 4px; padding: 10px;">
-                </div>
-            </div>
-            <div class="modal-buttons">
-                <button class="cancel" onclick="closeAssigneeModal()">Close</button>
-            </div>
+            <div id="assigneeList" style="max-height: 300px; overflow-y: auto; border: 1px solid #bdc3c7; border-radius: 4px; padding: 10px;"></div>
+            <div class="modal-buttons"><button class="cancel" onclick="closeAssigneeModal()">Close</button></div>
         </div>
     </div>
 
@@ -742,7 +655,7 @@
         let editingTaskId = null;
         let showCritical = false;
         let criticalPath = [];
-        let filteredTasks = [];
+        let displayedTasks = []; // Consolidated tasks (filtered + visibility logic applied)
         let assigneeList = [];
 
         const dayWidth = 20;
@@ -765,19 +678,30 @@
             applyFilters();
         }
 
+        function isTaskVisible(task) {
+            if (!task.parentId) return true;
+            const parent = tasks.find(t => t.id === parseInt(task.parentId));
+            if (!parent) return true;
+            if (parent.collapsed) return false;
+            return isTaskVisible(parent);
+        }
+
         function applyFilters() {
             const searchTerm = document.getElementById('searchFilter').value.toLowerCase();
             const assigneeFilter = document.getElementById('assigneeFilter').value;
             const priorityFilter = document.getElementById('priorityFilter').value;
 
-            filteredTasks = tasks.filter(task => {
+            // Step 1: Filter by metadata
+            let filtered = tasks.filter(task => {
                 const matchesSearch = task.name.toLowerCase().includes(searchTerm) || 
                                     (task.assignee && task.assignee.toLowerCase().includes(searchTerm));
                 const matchesAssignee = !assigneeFilter || task.assignee === assigneeFilter;
                 const matchesPriority = !priorityFilter || task.priority === priorityFilter;
-                
                 return matchesSearch && matchesAssignee && matchesPriority;
             });
+
+            // Step 2: Filter by visibility (expand/collapse)
+            displayedTasks = filtered.filter(task => isTaskVisible(task));
 
             updateAssigneeFilter();
             calculateCriticalPath();
@@ -789,7 +713,6 @@
             const select = document.getElementById('assigneeFilter');
             const currentValue = select.value;
             const assignees = [...new Set([...assigneeList, ...tasks.map(t => t.assignee).filter(Boolean)])];
-            
             select.innerHTML = '<option value="">All</option>';
             assignees.forEach(assignee => {
                 select.innerHTML += `<option value="${assignee}">${assignee}</option>`;
@@ -818,14 +741,7 @@
 
         function addAssignee() {
             const name = document.getElementById('newAssigneeName').value.trim();
-            if (!name) {
-                alert('Please enter an assignee name');
-                return;
-            }
-            if (assigneeList.includes(name)) {
-                alert('This assignee already exists');
-                return;
-            }
+            if (!name || assigneeList.includes(name)) return;
             assigneeList.push(name);
             document.getElementById('newAssigneeName').value = '';
             renderAssigneeList();
@@ -833,78 +749,41 @@
         }
 
         function removeAssignee(name) {
-            if (confirm(`Remove "${name}" from assignee list?\n\nNote: This won't remove them from existing tasks.`)) {
-                assigneeList = assigneeList.filter(a => a !== name);
-                renderAssigneeList();
-                updateAssigneeFilter();
-            }
+            assigneeList = assigneeList.filter(a => a !== name);
+            renderAssigneeList();
+            updateAssigneeFilter();
         }
 
-        function closeAssigneeModal() {
-            document.getElementById('assigneeModal').classList.remove('active');
-        }
+        function closeAssigneeModal() { document.getElementById('assigneeModal').classList.remove('active'); }
 
         function calculateCriticalPath() {
             criticalPath = [];
             if (tasks.length === 0) return;
-
             const taskMap = {};
             tasks.forEach(t => {
-                taskMap[t.id] = {
-                    ...t,
-                    earlyStart: 0,
-                    earlyFinish: 0,
-                    lateStart: Infinity,
-                    lateFinish: Infinity,
-                    slack: 0
-                };
+                taskMap[t.id] = { ...t, earlyStart: 0, earlyFinish: 0, lateStart: Infinity, lateFinish: Infinity, slack: 0 };
             });
-
-            // Forward pass
             tasks.forEach(task => {
                 const t = taskMap[task.id];
                 if (task.dependencies && task.dependencies.length > 0) {
                     let maxFinish = 0;
-                    task.dependencies.forEach(depId => {
-                        const dep = taskMap[depId];
-                        if (dep) {
-                            maxFinish = Math.max(maxFinish, dep.earlyFinish);
-                        }
-                    });
+                    task.dependencies.forEach(depId => { if (taskMap[depId]) maxFinish = Math.max(maxFinish, taskMap[depId].earlyFinish); });
                     t.earlyStart = maxFinish;
                 } else {
-                    const dayOffset = Math.floor((new Date(task.start) - startDate) / (1000 * 60 * 60 * 24));
-                    t.earlyStart = dayOffset;
+                    t.earlyStart = Math.floor((new Date(task.start) - startDate) / 86400000);
                 }
                 t.earlyFinish = t.earlyStart + (task.duration || 1);
             });
-
-            // Find project end
             const projectEnd = Math.max(...Object.values(taskMap).map(t => t.earlyFinish));
-
-            // Backward pass
-            const reverseTasks = [...tasks].reverse();
-            reverseTasks.forEach(task => {
+            [...tasks].reverse().forEach(task => {
                 const t = taskMap[task.id];
-                
-                const dependentTasks = tasks.filter(dt => 
-                    dt.dependencies && dt.dependencies.includes(task.id)
-                );
-                
-                if (dependentTasks.length === 0) {
-                    t.lateFinish = projectEnd;
-                } else {
-                    t.lateFinish = Math.min(...dependentTasks.map(dt => taskMap[dt.id].lateStart));
-                }
+                const deps = tasks.filter(dt => dt.dependencies && dt.dependencies.includes(task.id));
+                if (deps.length === 0) t.lateFinish = projectEnd;
+                else t.lateFinish = Math.min(...deps.map(dt => taskMap[dt.id].lateStart));
                 t.lateStart = t.lateFinish - (task.duration || 1);
                 t.slack = t.lateStart - t.earlyStart;
             });
-
-            // Find critical path (tasks with zero slack)
-            criticalPath = tasks.filter(task => {
-                const t = taskMap[task.id];
-                return Math.abs(t.slack) < 0.01;
-            }).map(t => t.id);
+            criticalPath = tasks.filter(task => Math.abs(taskMap[task.id].slack) < 0.01).map(t => t.id);
         }
 
         function toggleCriticalPath() {
@@ -916,29 +795,28 @@
         }
 
         function updateStats() {
-            const total = tasks.filter(t => t.type !== 'milestone').length;
-            const completed = tasks.filter(t => t.type !== 'milestone' && t.progress === 100).length;
-            const inProgress = tasks.filter(t => t.type !== 'milestone' && t.progress > 0 && t.progress < 100).length;
-            const avgProgress = total > 0 ? Math.round(tasks.filter(t => t.type !== 'milestone').reduce((sum, t) => sum + (t.progress || 0), 0) / total) : 0;
+            const tArray = tasks.filter(t => t.type !== 'milestone');
+            const total = tArray.length;
+            const completed = tArray.filter(t => t.progress === 100).length;
+            const inProgress = tArray.filter(t => t.progress > 0 && t.progress < 100).length;
+            const avgProgress = total > 0 ? Math.round(tArray.reduce((sum, t) => sum + (t.progress || 0), 0) / total) : 0;
             
-            let minDate = null, maxDate = null;
+            let minD = null, maxD = null;
             tasks.forEach(t => {
                 if (t.type === 'milestone') return;
-                const start = new Date(t.start);
-                const end = new Date(start);
-                end.setDate(end.getDate() + (t.duration || 1));
-                
-                if (!minDate || start < minDate) minDate = start;
-                if (!maxDate || end > maxDate) maxDate = end;
+                const s = new Date(t.start);
+                const e = new Date(s);
+                e.setDate(s.getDate() + (t.duration || 1));
+                if (!minD || s < minD) minD = s;
+                if (!maxD || e > maxD) maxD = e;
             });
-            
-            const duration = minDate && maxDate ? Math.ceil((maxDate - minDate) / (1000 * 60 * 60 * 24)) : 0;
+            const dur = minD && maxD ? Math.ceil((maxD - minD) / 86400000) : 0;
 
             document.getElementById('statTotal').textContent = total;
             document.getElementById('statCompleted').textContent = completed;
             document.getElementById('statInProgress').textContent = inProgress;
             document.getElementById('statAvgProgress').textContent = avgProgress + '%';
-            document.getElementById('statDuration').textContent = duration + ' days';
+            document.getElementById('statDuration').textContent = dur + ' days';
         }
 
         function render() {
@@ -949,695 +827,335 @@
 
         function renderTimelineHeader() {
             const header = document.getElementById('timelineHeader');
-            const totalDays = numWeeks * 7;
-            
             let weekHTML = '<div class="week-header">';
             let dayHTML = '<div class="day-header">';
-            
             for (let w = 0; w < numWeeks; w++) {
-                const weekStart = new Date(startDate);
-                weekStart.setDate(startDate.getDate() + w * 7);
-                const weekEnd = new Date(weekStart);
-                weekEnd.setDate(weekStart.getDate() + 6);
-                
-                weekHTML += `<div class="week-cell">${formatDate(weekStart)} - ${formatDate(weekEnd)}</div>`;
-                
+                const ws = new Date(startDate); ws.setDate(startDate.getDate() + w * 7);
+                const we = new Date(ws); we.setDate(ws.getDate() + 6);
+                weekHTML += `<div class="week-cell">${formatDate(ws)} - ${formatDate(we)}</div>`;
                 for (let d = 0; d < 7; d++) {
-                    const day = new Date(weekStart);
-                    day.setDate(weekStart.getDate() + d);
-                    const dayLetter = ['S', 'M', 'T', 'W', 'T', 'F', 'S'][day.getDay()];
-                    dayHTML += `<div class="day-cell">${dayLetter}</div>`;
+                    const day = new Date(ws); day.setDate(ws.getDate() + d);
+                    dayHTML += `<div class="day-cell">${['S', 'M', 'T', 'W', 'T', 'F', 'S'][day.getDay()]}</div>`;
                 }
             }
-            
-            weekHTML += '</div>';
-            dayHTML += '</div>';
-            header.innerHTML = weekHTML + dayHTML;
+            header.innerHTML = weekHTML + '</div>' + dayHTML + '</div>';
         }
 
         function renderTimelineGrid() {
             const grid = document.getElementById('timelineGrid');
             const totalDays = numWeeks * 7;
-            
             grid.innerHTML = '';
 
-            const svgNS = "http://www.w3.org/2000/svg";
-            const svg = document.createElementNS(svgNS, "svg");
-            svg.style.position = 'absolute';
-            svg.style.top = '0';
-            svg.style.left = '0';
-            svg.style.width = '100%';
-            svg.style.height = '100%';
-            svg.style.pointerEvents = 'none';
-            svg.style.zIndex = '1';
+            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            svg.setAttribute("style", `position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1;`);
             
-            filteredTasks.forEach((task, index) => {
-                // Skip if not visible (parent is collapsed)
-                if (!isTaskVisible(task)) {
-                    return;
+            displayedTasks.forEach((task, index) => {
+                const row = document.createElement('div');
+                row.className = 'grid-row';
+                for (let d = 0; d < totalDays; d++) {
+                    const cDate = new Date(startDate); cDate.setDate(startDate.getDate() + d);
+                    const cell = document.createElement('div');
+                    cell.className = 'grid-cell' + (cDate.getDay() === 0 || cDate.getDay() === 6 ? ' weekend' : '');
+                    row.appendChild(cell);
+                }
+
+                // Render Bar (Task OR Milestone)
+                const dayOffset = Math.floor((new Date(task.start) - startDate) / 86400000);
+                const bar = document.createElement('div');
+                bar.className = `task-bar ${task.type}`;
+                if (showCritical && criticalPath.includes(task.id)) bar.classList.add('critical');
+                if (task.priority === 'high' && !showCritical) bar.classList.add('high-priority');
+                
+                bar.style.left = `${dayOffset * dayWidth + (task.type === 'milestone' ? 10 : 0)}px`;
+                if (task.type !== 'milestone') {
+                    bar.style.width = `${(task.duration || 1) * dayWidth}px`;
+                    if (task.color && task.type !== 'parent') bar.style.background = task.color;
+                    if (task.progress > 0 && task.type !== 'parent') {
+                        const prog = document.createElement('div');
+                        prog.className = 'progress-bar';
+                        prog.style.width = `${task.progress}%`;
+                        bar.appendChild(prog);
+                    }
+                    // Resize handles
+                    if (task.type !== 'parent') {
+                        ['left', 'right'].forEach(dir => {
+                            const h = document.createElement('div');
+                            h.className = `resize-handle ${dir}`;
+                            h.onmousedown = (e) => startResize(e, task, tasks.indexOf(task), dir);
+                            bar.appendChild(h);
+                        });
+                    }
                 }
                 
-                if (task.type !== 'milestone') {
-                    const row = document.createElement('div');
-                    row.className = 'grid-row';
-                    
-                    for (let d = 0; d < totalDays; d++) {
-                        const cellDate = new Date(startDate);
-                        cellDate.setDate(startDate.getDate() + d);
-                        const isWeekend = cellDate.getDay() === 0 || cellDate.getDay() === 6;
-                        
-                        const cell = document.createElement('div');
-                        cell.className = 'grid-cell' + (isWeekend ? ' weekend' : '');
-                        row.appendChild(cell);
-                    }
-                    
-                    const bar = createTaskBar(task, index);
-                    row.appendChild(bar);
-                    
-                    grid.appendChild(row);
-                }
-            });
+                bar.onmousedown = (e) => { if (!e.target.classList.contains('resize-handle')) startDrag(e, task, tasks.indexOf(task)); };
+                row.appendChild(bar);
+                grid.appendChild(row);
 
-            // Draw dependency lines
-            filteredTasks.forEach((task, index) => {
-                if (task.dependencies && task.dependencies.length > 0) {
+                // Dependencies
+                if (task.dependencies) {
                     task.dependencies.forEach(depId => {
-                        const depTask = tasks.find(t => t.id === depId);
-                        if (depTask && filteredTasks.includes(task) && filteredTasks.includes(depTask)) {
-                            const depIndex = filteredTasks.indexOf(depTask);
-                            const taskIndex = filteredTasks.indexOf(task);
-                            
-                            const depRow = getTaskRowIndex(tasks.indexOf(depTask));
-                            const taskRow = getTaskRowIndex(tasks.indexOf(task));
-                            
-                            if (depRow >= 0 && taskRow >= 0) {
-                                const depEnd = Math.floor((new Date(depTask.start) - startDate) / (1000 * 60 * 60 * 24)) + (depTask.duration || 1);
-                                const taskStart = Math.floor((new Date(task.start) - startDate) / (1000 * 60 * 60 * 24));
-                                
-                                const x1 = depEnd * dayWidth;
-                                const y1 = depRow * 50 + 25;
-                                const x2 = taskStart * dayWidth;
-                                const y2 = taskRow * 50 + 25;
-                                
-                                const line = document.createElementNS(svgNS, "path");
-                                const midX = (x1 + x2) / 2;
-                                const d = `M ${x1} ${y1} L ${midX} ${y1} L ${midX} ${y2} L ${x2} ${y2}`;
-                                line.setAttribute("d", d);
-                                line.setAttribute("class", showCritical && criticalPath.includes(task.id) && criticalPath.includes(depId) ? "dependency-line critical" : "dependency-line");
-                                svg.appendChild(line);
-                            }
+                        const dep = tasks.find(t => t.id === depId);
+                        const depDispIdx = displayedTasks.findIndex(t => t.id === depId);
+                        if (dep && depDispIdx >= 0) {
+                            const x1 = (Math.floor((new Date(dep.start) - startDate) / 86400000) + (dep.duration || 0)) * dayWidth;
+                            const y1 = depDispIdx * 50 + 25;
+                            const x2 = dayOffset * dayWidth;
+                            const y2 = index * 50 + 25;
+                            const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                            const mid = (x1 + x2) / 2;
+                            path.setAttribute("d", `M ${x1} ${y1} L ${mid} ${y1} L ${mid} ${y2} L ${x2} ${y2}`);
+                            path.setAttribute("class", showCritical && criticalPath.includes(task.id) && criticalPath.includes(depId) ? "dependency-line critical" : "dependency-line");
+                            svg.appendChild(path);
                         }
                     });
                 }
             });
 
-            grid.appendChild(svg);
-
-            // Render milestones and deadline
-            const milestoneRow = document.createElement('div');
-            milestoneRow.style.position = 'absolute';
-            milestoneRow.style.width = '100%';
-            milestoneRow.style.height = '100%';
-            milestoneRow.style.top = '0';
-            milestoneRow.style.pointerEvents = 'none';
-            milestoneRow.style.zIndex = '2';
-
-            filteredTasks.forEach((task, index) => {
-                if (task.type === 'milestone') {
-                    const dayOffset = Math.floor((new Date(task.start) - startDate) / (1000 * 60 * 60 * 24));
-                    const rowIndex = getTaskRowIndex(tasks.indexOf(task));
-                    
-                    if (dayOffset >= 0 && dayOffset < totalDays && rowIndex >= 0) {
-                        const milestone = document.createElement('div');
-                        milestone.className = 'task-bar milestone';
-                        milestone.style.left = `${dayOffset * dayWidth + 10}px`;
-                        milestone.style.top = `${rowIndex * 50 + 15}px`;
-                        milestone.style.pointerEvents = 'auto';
-                        milestone.title = task.name;
-                        milestone.addEventListener('mousedown', (e) => startDrag(e, task, tasks.indexOf(task)));
-                        milestoneRow.appendChild(milestone);
-                    }
-                }
-            });
-
-            // Today line
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-            const todayOffset = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
-            if (todayOffset >= 0 && todayOffset < totalDays) {
-                const todayLine = document.createElement('div');
-                todayLine.className = 'task-bar today-line';
-                todayLine.style.left = `${todayOffset * dayWidth}px`;
-                todayLine.style.top = '0';
-                todayLine.style.height = `${grid.scrollHeight}px`;
-                todayLine.title = `Today: ${formatDate(today)}`;
-                milestoneRow.appendChild(todayLine);
+            // Indicators Layer
+            const indOverlay = document.createElement('div');
+            indOverlay.setAttribute("style", "position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:4;");
+            
+            const today = new Date(); today.setHours(0,0,0,0);
+            const tOff = Math.floor((today - startDate) / 86400000);
+            if (tOff >= 0 && tOff < totalDays) {
+                const line = document.createElement('div');
+                line.className = 'today-line';
+                line.style.left = `${tOff * dayWidth}px`;
+                line.style.height = `${displayedTasks.length * 50}px`;
+                indOverlay.appendChild(line);
             }
 
             if (deadline) {
-                const dayOffset = Math.floor((new Date(deadline) - startDate) / (1000 * 60 * 60 * 24));
-                if (dayOffset >= 0 && dayOffset < totalDays) {
-                    const deadlineMark = document.createElement('div');
-                    deadlineMark.className = 'task-bar deadline';
-                    deadlineMark.style.left = `${dayOffset * dayWidth}px`;
-                    deadlineMark.style.top = '0';
-                    deadlineMark.style.height = `${grid.scrollHeight}px`;
-                    deadlineMark.title = `Deadline: ${formatDate(new Date(deadline))}`;
-                    milestoneRow.appendChild(deadlineMark);
+                const dOff = Math.floor((new Date(deadline) - startDate) / 86400000);
+                if (dOff >= 0 && dOff < totalDays) {
+                    const line = document.createElement('div');
+                    line.className = 'deadline';
+                    line.style.left = `${dOff * dayWidth}px`;
+                    line.style.height = `${displayedTasks.length * 50}px`;
+                    indOverlay.appendChild(line);
                 }
             }
 
-            grid.appendChild(milestoneRow);
-        }
-
-        function getTaskRowIndex(taskIndex) {
-            let rowIndex = 0;
-            for (let i = 0; i < taskIndex; i++) {
-                if (isTaskVisible(tasks[i]) && filteredTasks.includes(tasks[i]) && tasks[i].type !== 'milestone') {
-                    rowIndex++;
-                }
-            }
-            
-            return (isTaskVisible(tasks[taskIndex]) && filteredTasks.includes(tasks[taskIndex])) ? rowIndex : -1;
-        }
-
-        function createTaskBar(task, index) {
-            const dayOffset = Math.floor((new Date(task.start) - startDate) / (1000 * 60 * 60 * 24));
-            const duration = task.duration || 1;
-            
-            const bar = document.createElement('div');
-            bar.className = `task-bar ${task.type}`;
-            if (showCritical && criticalPath.includes(task.id)) {
-                bar.classList.add('critical');
-            }
-            if (task.priority === 'high' && !showCritical) {
-                bar.classList.add('high-priority');
-            }
-            
-            bar.style.left = `${dayOffset * dayWidth}px`;
-            bar.style.width = `${duration * dayWidth}px`;
-            if (task.color && task.type !== 'parent') {
-                bar.style.background = task.color;
-            }
-            
-            let tooltipText = `${task.name}\nStart: ${formatDate(new Date(task.start))}\nDuration: ${duration} days`;
-            if (task.assignee) tooltipText += `\nAssignee: ${task.assignee}`;
-            if (task.progress !== undefined) tooltipText += `\nProgress: ${task.progress}%`;
-            if (task.priority) tooltipText += `\nPriority: ${task.priority}`;
-            
-            bar.title = tooltipText;
-            
-            bar.addEventListener('mousedown', (e) => {
-                if (e.target.classList.contains('resize-handle')) return;
-                startDrag(e, task, tasks.indexOf(task));
-            });
-
-            // Progress bar
-            if (task.progress > 0 && task.type !== 'parent') {
-                const progressBar = document.createElement('div');
-                progressBar.className = 'progress-bar';
-                progressBar.style.width = `${task.progress}%`;
-                bar.appendChild(progressBar);
-            }
-
-            if (task.type !== 'parent') {
-                const leftHandle = document.createElement('div');
-                leftHandle.className = 'resize-handle left';
-                leftHandle.addEventListener('mousedown', (e) => startResize(e, task, tasks.indexOf(task), 'left'));
-                bar.appendChild(leftHandle);
-
-                const rightHandle = document.createElement('div');
-                rightHandle.className = 'resize-handle right';
-                rightHandle.addEventListener('mousedown', (e) => startResize(e, task, tasks.indexOf(task), 'right'));
-                bar.appendChild(rightHandle);
-            }
-            
-            return bar;
+            grid.appendChild(svg);
+            grid.appendChild(indOverlay);
         }
 
         function renderTaskList() {
-            const taskListBody = document.getElementById('taskListBody');
-            taskListBody.innerHTML = '';
-            
-            filteredTasks.forEach((task, index) => {
-                // Skip if not visible (parent is collapsed)
-                if (!isTaskVisible(task)) {
-                    return;
-                }
-
+            const body = document.getElementById('taskListBody');
+            body.innerHTML = '';
+            displayedTasks.forEach((task, index) => {
                 const row = document.createElement('div');
                 row.className = 'task-row';
-                
                 const indent = task.parentId ? '<span class="task-indent"></span>' : '';
-                const toggle = task.type === 'parent' 
-                    ? `<span class="task-toggle" onclick="toggleCollapse(${task.id})">${task.collapsed ? '▶' : '▼'}</span>`
-                    : '<span class="task-indent"></span>';
-                
-                const icon = getTaskIcon(task.type);
-                const priorityDot = task.priority ? `<span class="priority-indicator priority-${task.priority}"></span>` : '';
-                
-                const actualIndex = tasks.indexOf(task);
-                const metaInfo = [];
-                if (task.assignee) metaInfo.push(`👤 ${task.assignee}`);
-                if (task.progress !== undefined) metaInfo.push(`${task.progress}%`);
-                const metaHTML = metaInfo.length > 0 ? `<div class="task-meta">${metaInfo.join(' • ')}</div>` : '';
-                
+                const toggle = task.type === 'parent' ? `<span class="task-toggle" onclick="toggleCollapse(${task.id}, event)">${task.collapsed ? '▶' : '▼'}</span>` : '<span class="task-indent"></span>';
+                const actualIdx = tasks.indexOf(task);
                 row.innerHTML = `
-                    ${indent}
-                    ${toggle}
-                    ${priorityDot}
-                    <span class="task-icon">${icon}</span>
-                    <span class="task-name" ondblclick="editTask(${task.id})">
+                    ${indent}${toggle}
+                    <span class="priority-indicator priority-${task.priority || 'medium'}"></span>
+                    <span class="task-icon">${getTaskIcon(task.type)}</span>
+                    <span class="task-name" onclick="editTask(${task.id})">
                         <div class="task-main-name">${task.name}</div>
-                        ${metaHTML}
+                        <div class="task-meta">${task.assignee ? '👤 ' + task.assignee : ''} ${task.type !== 'milestone' ? '• ' + (task.progress || 0) + '%' : ''}</div>
                     </span>
                     <div class="move-buttons">
-                        <button class="move-btn" onclick="moveTask(${actualIndex}, -1)" ${actualIndex === 0 ? 'disabled' : ''}>↑</button>
-                        <button class="move-btn" onclick="moveTask(${actualIndex}, 1)" ${actualIndex === tasks.length - 1 ? 'disabled' : ''}>↓</button>
+                        <button class="move-btn" onclick="moveTask(${actualIdx}, -1)">↑</button>
+                        <button class="move-btn" onclick="moveTask(${actualIdx}, 1)">↓</button>
                     </div>
                     <button class="task-delete" onclick="deleteTask(${task.id})">×</button>
                 `;
-                
-                taskListBody.appendChild(row);
+                body.appendChild(row);
             });
         }
 
-        function getTaskIcon(type) {
-            switch(type) {
-                case 'parent': return '📁';
-                case 'child': return '📄';
-                case 'milestone': return '🏁';
-                default: return '📄';
-            }
-        }
+        function getTaskIcon(type) { return type === 'parent' ? '📁' : (type === 'milestone' ? '🏁' : '📄'); }
 
-        function moveTask(index, direction) {
-            const newIndex = index + direction;
-            if (newIndex < 0 || newIndex >= tasks.length) return;
-            
-            const temp = tasks[index];
-            tasks[index] = tasks[newIndex];
-            tasks[newIndex] = temp;
-            
+        function moveTask(idx, dir) {
+            const nIdx = idx + dir;
+            if (nIdx < 0 || nIdx >= tasks.length) return;
+            [tasks[idx], tasks[nIdx]] = [tasks[nIdx], tasks[idx]];
             applyFilters();
         }
 
         function startDrag(e, task, index) {
-            e.preventDefault();
-            e.stopPropagation();
-            draggedTask = { task, index };
-            dragStartX = e.clientX;
-            
-            document.addEventListener('mousemove', drag);
-            document.addEventListener('mouseup', stopDrag);
+            e.preventDefault(); draggedTask = { task, index }; dragStartX = e.clientX;
+            document.onmousemove = drag; document.onmouseup = stopDrag;
         }
 
         function drag(e) {
             if (!draggedTask) return;
-            
-            const deltaX = e.clientX - dragStartX;
-            const deltaDays = Math.round(deltaX / dayWidth);
-            
-            if (deltaDays !== 0) {
-                const newStart = new Date(draggedTask.task.start);
-                newStart.setDate(newStart.getDate() + deltaDays);
-                draggedTask.task.start = newStart.toISOString().split('T')[0];
-                dragStartX = e.clientX;
-                render();
+            const diff = Math.round((e.clientX - dragStartX) / dayWidth);
+            if (diff !== 0) {
+                const d = new Date(draggedTask.task.start); d.setDate(d.getDate() + diff);
+                draggedTask.task.start = d.toISOString().split('T')[0];
+                dragStartX = e.clientX; render();
             }
         }
 
-        function stopDrag() {
-            draggedTask = null;
-            document.removeEventListener('mousemove', drag);
-            document.removeEventListener('mouseup', stopDrag);
-        }
+        function stopDrag() { draggedTask = null; document.onmousemove = null; document.onmouseup = null; }
 
-        function startResize(e, task, index, direction) {
-            e.preventDefault();
-            e.stopPropagation();
-            resizeTask = { task, index };
-            resizeDirection = direction;
-            dragStartX = e.clientX;
-            
-            document.addEventListener('mousemove', resize);
-            document.addEventListener('mouseup', stopResize);
+        function startResize(e, task, index, dir) {
+            e.preventDefault(); e.stopPropagation();
+            resizeTask = { task, index }; resizeDirection = dir; dragStartX = e.clientX;
+            document.onmousemove = resize; document.onmouseup = stopResize;
         }
 
         function resize(e) {
             if (!resizeTask) return;
-            
-            const deltaX = e.clientX - dragStartX;
-            const deltaDays = Math.round(deltaX / dayWidth);
-            
-            if (deltaDays !== 0) {
+            const diff = Math.round((e.clientX - dragStartX) / dayWidth);
+            if (diff !== 0) {
                 if (resizeDirection === 'left') {
-                    const newStart = new Date(resizeTask.task.start);
-                    newStart.setDate(newStart.getDate() + deltaDays);
-                    resizeTask.task.start = newStart.toISOString().split('T')[0];
-                    resizeTask.task.duration = Math.max(1, resizeTask.task.duration - deltaDays);
-                } else {
-                    resizeTask.task.duration = Math.max(1, resizeTask.task.duration + deltaDays);
-                }
-                dragStartX = e.clientX;
-                render();
+                    const d = new Date(resizeTask.task.start); d.setDate(d.getDate() + diff);
+                    resizeTask.task.start = d.toISOString().split('T')[0];
+                    resizeTask.task.duration = Math.max(1, resizeTask.task.duration - diff);
+                } else resizeTask.task.duration = Math.max(1, resizeTask.task.duration + diff);
+                dragStartX = e.clientX; render();
             }
         }
 
-        function stopResize() {
-            resizeTask = null;
-            resizeDirection = null;
-            document.removeEventListener('mousemove', resize);
-            document.removeEventListener('mouseup', stopResize);
+        function stopResize() { resizeTask = null; document.onmousemove = null; document.onmouseup = null; }
+
+        function toggleCollapse(id, e) {
+            e.stopPropagation();
+            const t = tasks.find(x => x.id === id);
+            if (t) { t.collapsed = !t.collapsed; applyFilters(); }
         }
 
-        function toggleCollapse(taskId) {
-            const task = tasks.find(t => t.id === taskId);
-            if (task) {
-                task.collapsed = !task.collapsed;
-                applyFilters();
-            }
-        }
+        function addTask() { openModal('child'); }
+        function addMilestone() { openModal('milestone'); }
 
-        function addTask() {
-            editingTaskId = null;
-            document.getElementById('modalTitle').textContent = 'Add Task';
-            document.getElementById('modalTaskName').value = '';
-            document.getElementById('modalTaskType').value = 'child';
-            document.getElementById('modalStartDate').value = startDate.toISOString().split('T')[0];
-            document.getElementById('modalDuration').value = 3;
-            document.getElementById('modalProgress').value = 0;
-            updateAssigneeSelect();
-            document.getElementById('modalAssigneeCustom').value = '';
-            document.getElementById('modalPriority').value = 'medium';
-            document.getElementById('modalColor').value = '#3498db';
-            updateColorPreview();
-            updateParentSelect();
-            updateDependencySelect();
-            document.getElementById('taskModal').classList.add('active');
-        }
-
-        function addMilestone() {
-            editingTaskId = null;
-            document.getElementById('modalTitle').textContent = 'Add Milestone';
-            document.getElementById('modalTaskName').value = '';
-            document.getElementById('modalTaskType').value = 'milestone';
-            document.getElementById('modalStartDate').value = startDate.toISOString().split('T')[0];
-            document.getElementById('modalDuration').value = 1;
-            document.getElementById('modalProgress').value = 0;
-            updateAssigneeSelect();
-            document.getElementById('modalAssigneeCustom').value = '';
-            document.getElementById('modalPriority').value = 'high';
-            document.getElementById('modalColor').value = '#e74c3c';
-            updateColorPreview();
-            updateParentSelect();
-            updateDependencySelect();
-            document.getElementById('taskModal').classList.add('active');
-        }
-
-        function editTask(taskId) {
-            const task = tasks.find(t => t.id === taskId);
-            if (!task) return;
+        function openModal(type, id = null) {
+            editingTaskId = id;
+            const t = id ? tasks.find(x => x.id === id) : null;
+            document.getElementById('modalTitle').textContent = id ? 'Edit' : 'Add ' + type;
+            document.getElementById('modalTaskName').value = t ? t.name : '';
+            document.getElementById('modalTaskType').value = t ? t.type : type;
+            document.getElementById('modalStartDate').value = t ? t.start : startDate.toISOString().split('T')[0];
+            document.getElementById('modalDuration').value = t ? t.duration : (type === 'milestone' ? 1 : 3);
+            document.getElementById('modalProgress').value = t ? t.progress : 0;
+            document.getElementById('modalPriority').value = t ? t.priority : 'medium';
+            document.getElementById('modalColor').value = t ? t.color || '#3498db' : '#3498db';
             
-            editingTaskId = taskId;
-            document.getElementById('modalTitle').textContent = 'Edit Task';
-            document.getElementById('modalTaskName').value = task.name;
-            document.getElementById('modalTaskType').value = task.type;
-            document.getElementById('modalStartDate').value = task.start;
-            document.getElementById('modalDuration').value = task.duration || 1;
-            document.getElementById('modalProgress').value = task.progress || 0;
             updateAssigneeSelect();
-            document.getElementById('modalAssignee').value = task.assignee || '';
-            document.getElementById('modalAssigneeCustom').value = '';
-            document.getElementById('modalPriority').value = task.priority || 'medium';
-            document.getElementById('modalColor').value = task.color || '#3498db';
-            updateColorPreview();
-            updateParentSelect();
-            updateDependencySelect();
-            document.getElementById('modalParent').value = task.parentId || '';
+            document.getElementById('modalAssignee').value = t ? t.assignee || '' : '';
             
-            const depSelect = document.getElementById('modalDependencies');
-            Array.from(depSelect.options).forEach(opt => {
-                opt.selected = task.dependencies && task.dependencies.includes(parseInt(opt.value));
-            });
+            updateParentSelect();
+            document.getElementById('modalParent').value = t ? t.parentId || '' : '';
+            
+            updateDependencySelect();
+            const depSel = document.getElementById('modalDependencies');
+            Array.from(depSel.options).forEach(o => o.selected = t && t.dependencies && t.dependencies.includes(parseInt(o.value)));
             
             document.getElementById('taskModal').classList.add('active');
         }
+
+        function editTask(id) { openModal(null, id); }
 
         function updateAssigneeSelect() {
-            const select = document.getElementById('modalAssignee');
-            const allAssignees = [...new Set([...assigneeList, ...tasks.map(t => t.assignee).filter(Boolean)])];
-            
-            select.innerHTML = '<option value="">None</option>';
-            allAssignees.forEach(assignee => {
-                select.innerHTML += `<option value="${assignee}">${assignee}</option>`;
-            });
+            const s = document.getElementById('modalAssignee');
+            const list = [...new Set([...assigneeList, ...tasks.map(t => t.assignee).filter(Boolean)])];
+            s.innerHTML = '<option value="">None</option>' + list.map(a => `<option value="${a}">${a}</option>`).join('');
         }
 
         function updateParentSelect() {
-            const select = document.getElementById('modalParent');
-            select.innerHTML = '<option value="">None</option>';
-            tasks.filter(t => t.type === 'parent').forEach(t => {
-                if (editingTaskId !== t.id) {
-                    select.innerHTML += `<option value="${t.id}">${t.name}</option>`;
-                }
-            });
-        }
-        
-        function isTaskVisible(task) {
-            // Check if task should be visible based on parent collapse state
-            if (!task.parentId) return true;
-            
-            const parent = tasks.find(t => t.id === task.parentId);
-            if (!parent) return true;
-            
-            if (parent.collapsed) return false;
-            
-            // Recursively check if parent is visible
-            return isTaskVisible(parent);
+            const s = document.getElementById('modalParent');
+            s.innerHTML = '<option value="">None</option>' + tasks.filter(t => t.type === 'parent' && t.id !== editingTaskId).map(t => `<option value="${t.id}">${t.name}</option>`).join('');
         }
 
         function updateDependencySelect() {
-            const select = document.getElementById('modalDependencies');
-            select.innerHTML = '';
-            tasks.forEach(t => {
-                if (editingTaskId !== t.id && t.type !== 'milestone') {
-                    select.innerHTML += `<option value="${t.id}">${t.name}</option>`;
-                }
-            });
+            const s = document.getElementById('modalDependencies');
+            s.innerHTML = tasks.filter(t => t.id !== editingTaskId).map(t => `<option value="${t.id}">${t.name}</option>`).join('');
         }
 
-        function updateColorPreview() {
-            const color = document.getElementById('modalColor').value;
-            document.getElementById('colorPreview').style.background = color;
-        }
-
-        document.getElementById('modalColor').addEventListener('input', updateColorPreview);
+        function clearDependencies() { document.getElementById('modalDependencies').selectedIndex = -1; }
 
         function saveTask() {
             const name = document.getElementById('modalTaskName').value;
-            const type = document.getElementById('modalTaskType').value;
-            const start = document.getElementById('modalStartDate').value;
-            const duration = parseInt(document.getElementById('modalDuration').value) || 1;
-            const progress = parseInt(document.getElementById('modalProgress').value) || 0;
-            const assigneeSelect = document.getElementById('modalAssignee').value;
-            const assigneeCustom = document.getElementById('modalAssigneeCustom').value.trim();
-            const assignee = assigneeCustom || assigneeSelect || null;
-            const priority = document.getElementById('modalPriority').value;
-            const color = document.getElementById('modalColor').value;
-            const parentId = document.getElementById('modalParent').value || null;
-            
-            const depSelect = document.getElementById('modalDependencies');
-            const dependencies = Array.from(depSelect.selectedOptions).map(opt => parseInt(opt.value));
-            
-            if (!name) {
-                alert('Please enter a task name');
-                return;
-            }
-            
-            // Add custom assignee to list if new
-            if (assigneeCustom && !assigneeList.includes(assigneeCustom)) {
-                assigneeList.push(assigneeCustom);
-            }
-            
-            if (editingTaskId !== null) {
-                const task = tasks.find(t => t.id === editingTaskId);
-                if (task) {
-                    task.name = name;
-                    task.type = type;
-                    task.start = start;
-                    task.duration = duration;
-                    task.progress = progress;
-                    task.assignee = assignee;
-                    task.priority = priority;
-                    task.color = color;
-                    task.parentId = parentId;
-                    task.dependencies = dependencies;
-                }
+            const parentId = document.getElementById('modalParent').value;
+            const customA = document.getElementById('modalAssigneeCustom').value.trim();
+            const assignee = customA || document.getElementById('modalAssignee').value || null;
+            if (!name) return alert('Enter name');
+            if (customA && !assigneeList.includes(customA)) assigneeList.push(customA);
+
+            const data = {
+                id: editingTaskId || Date.now(),
+                name,
+                type: document.getElementById('modalTaskType').value,
+                start: document.getElementById('modalStartDate').value,
+                duration: parseInt(document.getElementById('modalDuration').value) || 1,
+                progress: parseInt(document.getElementById('modalProgress').value) || 0,
+                priority: document.getElementById('modalPriority').value,
+                color: document.getElementById('modalColor').value,
+                parentId: parentId || null,
+                dependencies: Array.from(document.getElementById('modalDependencies').selectedOptions).map(o => parseInt(o.value)),
+                collapsed: editingTaskId ? tasks.find(t => t.id === editingTaskId).collapsed : false
+            };
+
+            if (editingTaskId) {
+                const idx = tasks.findIndex(t => t.id === editingTaskId);
+                tasks[idx] = data;
             } else {
-                const newTask = {
-                    id: Date.now(),
-                    name,
-                    type,
-                    start,
-                    duration,
-                    progress,
-                    assignee,
-                    priority,
-                    color,
-                    parentId,
-                    dependencies,
-                    collapsed: false
-                };
-                tasks.push(newTask);
+                // Positional Insertion
+                let insIdx = tasks.length;
+                if (parentId) {
+                    const pIdx = tasks.findIndex(t => t.id == parentId);
+                    if (pIdx >= 0) {
+                        let lastC = pIdx;
+                        for(let i=pIdx+1; i<tasks.length; i++) {
+                            if (tasks[i].parentId == parentId) lastC = i;
+                            else if (!tasks[i].parentId) break;
+                        }
+                        insIdx = lastC + 1;
+                    }
+                }
+                tasks.splice(insIdx, 0, data);
             }
-            
-            closeModal();
-            applyFilters();
+            closeModal(); applyFilters();
         }
 
-        function deleteTask(taskId) {
-            if (confirm('Are you sure you want to delete this task?')) {
-                tasks = tasks.filter(t => {
-                    if (t.id === taskId || t.parentId === taskId) return false;
-                    if (t.dependencies) {
-                        t.dependencies = t.dependencies.filter(d => d !== taskId);
-                    }
-                    return true;
-                });
+        function deleteTask(id) {
+            if (confirm('Delete?')) {
+                tasks = tasks.filter(t => t.id !== id && t.parentId != id);
+                tasks.forEach(t => { if(t.dependencies) t.dependencies = t.dependencies.filter(d => d !== id); });
                 applyFilters();
             }
         }
 
-        function closeModal() {
-            document.getElementById('taskModal').classList.remove('active');
-        }
-
-        function showHelp() {
-            document.getElementById('helpModal').classList.add('active');
-        }
-
-        function closeHelp() {
-            document.getElementById('helpModal').classList.remove('active');
-        }
-
-        function setDeadline() {
-            const date = prompt('Enter deadline date (YYYY-MM-DD):', deadline || '');
-            if (date) {
-                deadline = date;
-                render();
-            } else if (date === '') {
-                deadline = null;
-                render();
-            }
-        }
+        function closeModal() { document.getElementById('taskModal').classList.remove('active'); }
+        function showHelp() { document.getElementById('helpModal').classList.add('active'); }
+        function closeHelp() { document.getElementById('helpModal').classList.remove('active'); }
+        function setDeadline() { const d = prompt('Deadline (YYYY-MM-DD):', deadline || ''); if (d !== null) { deadline = d || null; render(); } }
 
         function saveProject() {
-            const project = {
-                startDate: startDate.toISOString().split('T')[0],
-                numWeeks,
-                tasks,
-                deadline,
-                assigneeList
-            };
-            
-            const json = JSON.stringify(project, null, 2);
-            const blob = new Blob([json], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'gantt-project.json';
-            a.click();
-            URL.revokeObjectURL(url);
+            const blob = new Blob([JSON.stringify({ startDate: startDate.toISOString().split('T')[0], numWeeks, tasks, deadline, assigneeList }, null, 2)], { type: 'application/json' });
+            const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'gantt.json'; a.click();
         }
 
-        function loadProject() {
-            document.getElementById('fileInput').click();
-        }
+        function loadProject() { document.getElementById('fileInput').click(); }
+
+        document.getElementById('fileInput').onchange = (e) => {
+            const r = new FileReader();
+            r.onload = (ev) => {
+                const p = JSON.parse(ev.target.result);
+                startDate = new Date(p.startDate); numWeeks = p.numWeeks; tasks = p.tasks || []; deadline = p.deadline; assigneeList = p.assigneeList || [];
+                document.getElementById('startDate').value = p.startDate; document.getElementById('numWeeks').value = p.numWeeks;
+                applyFilters();
+            };
+            r.readAsText(e.target.files[0]);
+        };
 
         function exportToPNG() {
-            const container = document.querySelector('.container');
-            const ganttWrapper = document.querySelector('.gantt-wrapper');
-            
-            // Store original styles
-            const originalMaxHeight = ganttWrapper.style.maxHeight;
-            const originalOverflow = ganttWrapper.style.overflow;
-            
-            // Temporarily expand to full size for capture
-            ganttWrapper.style.maxHeight = 'none';
-            ganttWrapper.style.overflow = 'visible';
-            
-            // Use html2canvas library
             const script = document.createElement('script');
             script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
             script.onload = () => {
-                html2canvas(container, {
-                    backgroundColor: '#ffffff',
-                    scale: 2,
-                    logging: false,
-                    useCORS: true
-                }).then(canvas => {
-                    // Restore original styles
-                    ganttWrapper.style.maxHeight = originalMaxHeight;
-                    ganttWrapper.style.overflow = originalOverflow;
-                    
-                    // Download the image
-                    canvas.toBlob(blob => {
-                        const url = URL.createObjectURL(blob);
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = `gantt-chart-${new Date().toISOString().split('T')[0]}.png`;
-                        a.click();
-                        URL.revokeObjectURL(url);
-                    });
-                }).catch(err => {
-                    // Restore original styles even on error
-                    ganttWrapper.style.maxHeight = originalMaxHeight;
-                    ganttWrapper.style.overflow = originalOverflow;
-                    alert('Error exporting PNG: ' + err.message);
+                html2canvas(document.querySelector('.container'), { scale: 2 }).then(canvas => {
+                    const a = document.createElement('a'); a.href = canvas.toDataURL(); a.download = 'gantt.png'; a.click();
                 });
-            };
-            script.onerror = () => {
-                ganttWrapper.style.maxHeight = originalMaxHeight;
-                ganttWrapper.style.overflow = originalOverflow;
-                alert('Failed to load export library. Please check your internet connection.');
             };
             document.head.appendChild(script);
         }
 
-        document.getElementById('fileInput').addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
-            
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                try {
-                    const project = JSON.parse(e.target.result);
-                    startDate = new Date(project.startDate);
-                    numWeeks = project.numWeeks;
-                    tasks = project.tasks || [];
-                    deadline = project.deadline;
-                    assigneeList = project.assigneeList || [];
-                    
-                    document.getElementById('startDate').value = project.startDate;
-                    document.getElementById('numWeeks').value = project.numWeeks;
-                    
-                    applyFilters();
-                } catch (err) {
-                    alert('Error loading project file: ' + err.message);
-                }
-            };
-            reader.readAsText(file);
-            e.target.value = '';
-        });
+        function formatDate(d) { return `${d.getDate()}/${d.getMonth() + 1}`; }
 
-        function formatDate(date) {
-            const month = date.getMonth() + 1;
-            const day = date.getDate();
-            return `${month}/${day}`;
-        }
-
-        // Initialize
         initializeDate();
         updateTimeline();
     </script>
